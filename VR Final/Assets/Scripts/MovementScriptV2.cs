@@ -7,6 +7,7 @@ public class MovementScriptV2 : MonoBehaviour {
 	Vector3 newDir;
 	public float forwardForce = 50f;
 	public float redirectForce = 100f;
+	public float stableForce = 50f;
 	Rigidbody rb;
 	public float raycastRange = 5f;
 	// Use this for initialization
@@ -17,6 +18,7 @@ public class MovementScriptV2 : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		MoveForward();
+		ClampAngularVelo();
 	}
 
 	void MoveForward ()
@@ -29,17 +31,14 @@ public class MovementScriptV2 : MonoBehaviour {
 		RaycastHit rayHit = new RaycastHit ();
 		
 		if (Physics.Raycast (ray, out rayHit, raycastRange)) {
-			transform.forward = rayHit.normal;
+//			transform.forward = rayHit.normal;
 //			transform.forward = Vector3.Lerp(transform.forward, rayHit.normal, 0.9f);
  //			transform.forward = newDir;
 			if (rayHit.transform.tag == "Wall") {
 				rb.AddForce ((rayHit.normal + Random.insideUnitSphere) * redirectForce * Time.deltaTime, ForceMode.Impulse);	
+				Debug.Log(rayHit.normal + Random.insideUnitSphere);
 			}  
 		}
-
-
-
-
 //		MOVEMENT USING OTHER RAYS
 //		Ray rayRight = new Ray (transform.position, transform.right);
 //		Ray rayLeft = new Ray (transform.position, Vector3.left);
@@ -89,6 +88,20 @@ public class MovementScriptV2 : MonoBehaviour {
 //				rb.AddForce(rayHitBack.normal + Random.insideUnitSphere * redirectForce * Time.deltaTime, ForceMode.Impulse);
 //			} 
 //		}
+	}
 
+
+	void ClampAngularVelo ()
+	{
+		float veloNormal;
+ 		float veloNormalMagnitude;
+		rb.angularVelocity.Normalize ();
+		veloNormal = rb.angularVelocity.magnitude;
+		veloNormalMagnitude = veloNormal * rb.angularVelocity.magnitude;
+		print(rb.angularVelocity.magnitude);
+		if (rb.angularVelocity.magnitude > 1) {
+			print("Applying stabilizing force");
+			rb.AddTorque(-rb.angularVelocity * stableForce * Time.deltaTime);			
+		} 	
 	}
 }
