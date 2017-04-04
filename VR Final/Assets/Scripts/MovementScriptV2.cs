@@ -36,7 +36,6 @@ public class MovementScriptV2 : MonoBehaviour {
  //			transform.forward = newDir;
 			if (rayHit.transform.tag == "Wall") {
 				rb.AddForce ((rayHit.normal + Random.insideUnitSphere) * redirectForce * Time.deltaTime, ForceMode.Impulse);	
-				Debug.Log(rayHit.normal + Random.insideUnitSphere);
 			}  
 		}
 //		MOVEMENT USING OTHER RAYS
