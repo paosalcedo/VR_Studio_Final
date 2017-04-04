@@ -93,15 +93,11 @@ public class MovementScriptV2 : MonoBehaviour {
 
 	void ClampAngularVelo ()
 	{
-		float veloNormal;
- 		float veloNormalMagnitude;
-		rb.angularVelocity.Normalize ();
-		veloNormal = rb.angularVelocity.magnitude;
-		veloNormalMagnitude = veloNormal * rb.angularVelocity.magnitude;
-		print(rb.angularVelocity.magnitude);
+//		rb.angularVelocity.Normalize ();
+//		rb.angularVelocity.magnitude = Mathf.Clamp(rb.angularVelocity.magnitude, 0, 1);
 		if (rb.angularVelocity.magnitude > 1) {
 			print("Applying stabilizing force");
 			rb.AddTorque(-rb.angularVelocity * stableForce * Time.deltaTime);			
-		} 	
+		} 
 	}
 }
