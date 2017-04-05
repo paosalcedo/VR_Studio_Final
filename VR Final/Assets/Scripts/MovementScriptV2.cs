@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class MovementScriptV2 : MonoBehaviour {
 	
+	GameObject player;
 	Vector3 newDir;
 	public float forwardForce = 50f;
 	public float redirectForce = 100f;
@@ -13,12 +14,14 @@ public class MovementScriptV2 : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		rb = GetComponent<Rigidbody>();
+		player = GameObject.Find("FallbackObjects");
 	}
 	
 	// Update is called once per frame
 	void Update () {
 		MoveForward();
 		ClampAngularVelo();
+		AvoidPlayer();
 	}
 
 	void MoveForward ()
@@ -41,9 +44,9 @@ public class MovementScriptV2 : MonoBehaviour {
 //		MOVEMENT USING OTHER RAYS
 //		Ray rayRight = new Ray (transform.position, transform.right);
 //		Ray rayLeft = new Ray (transform.position, Vector3.left);
+//		Ray rayBack = new Ray (transform.position, -transform.forward);
 //		Ray rayUp = new Ray (transform.position, transform.up); 
 //		Ray rayDown = new Ray (transform.position, Vector3.down);
-//		Ray rayBack = new Ray (transform.position, -transform.forward);
 //			
 //		RaycastHit rayHitUp = new RaycastHit ();
 //		RaycastHit rayHitDown = new RaycastHit ();
@@ -73,7 +76,7 @@ public class MovementScriptV2 : MonoBehaviour {
 //		if (Physics.Raycast (rayLeft, out rayHitLeft, raycastRange)) {
 //			if (rayHitLeft.transform.tag == "Wall") {
 //				rb.AddForce(rayHitLeft.normal + Random.insideUnitSphere * redirectForce * Time.deltaTime, ForceMode.Impulse);
-//			} 
+//			}
 //		}
 //
 //		if (Physics.Raycast (rayRight, out rayHitRight, raycastRange)) {
@@ -95,8 +98,19 @@ public class MovementScriptV2 : MonoBehaviour {
 //		rb.angularVelocity.Normalize ();
 //		rb.angularVelocity.magnitude = Mathf.Clamp(rb.angularVelocity.magnitude, 0, 1);
 		if (rb.angularVelocity.magnitude > 1) {
-			print("Applying stabilizing force");
+//			print("Applying stabilizing force");
 			rb.AddTorque(-rb.angularVelocity * stableForce * Time.deltaTime);			
 		} 
+	}
+	
+	void AvoidPlayer ()
+	{
+		float dist;
+		dist = Vector3.Distance (player.transform.position, transform.position);
+		Vector3 playerDir = player.transform.position - transform.position;
+		if (dist < 2f) {
+			print("Player in range!");
+			rb.AddForce(-playerDir * 100f * Time.deltaTime, ForceMode.Impulse);
+		}
 	}
 }
