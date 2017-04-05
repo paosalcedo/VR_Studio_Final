@@ -6,6 +6,7 @@ public class MovementScriptV2 : MonoBehaviour {
 	
 	GameObject player;
 	Vector3 newDir;
+	public float avoidForce = 100;
 	public float forwardForce = 50f;
 	public float redirectForce = 100f;
 	public float stableForce = 50f;
@@ -108,9 +109,9 @@ public class MovementScriptV2 : MonoBehaviour {
 		float dist;
 		dist = Vector3.Distance (player.transform.position, transform.position);
 		Vector3 playerDir = player.transform.position - transform.position;
-		if (dist < 2f) {
+		if (dist < 5f) {
 			print("Player in range!");
-			rb.AddForce(-playerDir * 100f * Time.deltaTime, ForceMode.Impulse);
+			rb.AddForce(-playerDir * avoidForce * Time.deltaTime, ForceMode.Impulse);
 		}
 	}
 }
