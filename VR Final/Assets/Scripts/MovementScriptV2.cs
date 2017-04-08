@@ -1,46 +1,61 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Valve.VR.InteractionSystem;
 
 public class MovementScriptV2 : MonoBehaviour {
 	
-	GameObject player;
+//	GameObject player;
+	public float avoidDist;
+	Transform player;
 	Vector3 newDir;
-	public float avoidForce = 100;
+	public float avoidForce = 2f;
 	public float forwardForce = 50f;
 	public float redirectForce = 100f;
 	public float stableForce = 50f;
 	Rigidbody rb;
-	public float raycastRange = 5f;
+	[SerializeField]float raycastRange = 5f;
 	// Use this for initialization
 	void Start () {
+//		The rigidbody of the Creature.
 		rb = GetComponent<Rigidbody>();
-		player = GameObject.Find("FallbackObjects");
+//		player = GameObject.Find("FallbackObjects");
+		
+		player = GameObject.Find("Player").GetComponent<Player>().hmdTransform;
 	}
 	
 	// Update is called once per frame
 	void Update () {
 		MoveForward();
-		ClampAngularVelo();
+//		ClampAngularVelo();
 		AvoidPlayer();
 	}
 
+	private bool rotating;
+	Vector3 to;
+	Vector3 newVec;
 	void MoveForward ()
 	{
-//		transform.Translate(transform.forward * forwardForce * Time.deltaTime);
-//		transform.Rotate(Vector3.up * 25f * Time.deltaTime);
 		rb.AddForce (transform.forward * forwardForce * Time.deltaTime, ForceMode.Impulse);
 		Ray ray = new Ray (transform.position, transform.forward);
 		Debug.DrawRay (ray.origin, ray.direction * raycastRange, Color.red);
 		RaycastHit rayHit = new RaycastHit ();
 		
 		if (Physics.Raycast (ray, out rayHit, raycastRange)) {
-//			transform.forward = rayHit.normal;
-//			transform.forward = Vector3.Lerp(transform.forward, rayHit.normal, 0.9f);
- //			transform.forward = newDir;
 			if (rayHit.transform.tag == "Wall") {
-				rb.AddForce ((rayHit.normal + Random.insideUnitSphere) * redirectForce * Time.deltaTime, ForceMode.Impulse);	
-			}  
+				newVec = rayHit.normal + Random.insideUnitSphere;
+				rb.AddForce ((newVec) * redirectForce * Time.deltaTime, ForceMode.Impulse);
+				rotating = true;
+			}  	
+		}
+
+		if (rotating == true) {
+			if (Vector3.Distance (transform.eulerAngles.y, newVec.y) > 0.01f) {
+				transform.eulerAngles = Vector3.Lerp (transform.rotation.eulerAngles.y, newVec.y, Time.deltaTime);
+			} else {
+				rotating = false;
+				transform.eulerAngles = transform.forward;
+			}
 		}
 //		MOVEMENT USING OTHER RAYS
 //		Ray rayRight = new Ray (transform.position, transform.right);
@@ -107,11 +122,14 @@ public class MovementScriptV2 : MonoBehaviour {
 	void AvoidPlayer ()
 	{
 		float dist;
-		dist = Vector3.Distance (player.transform.position, transform.position);
-		Vector3 playerDir = player.transform.position - transform.position;
-		if (dist < 5f) {
-			print("Player in range!");
+		dist = Vector3.Distance (player.position, transform.position);
+		Vector3 playerDir = player.position - transform.position;
+		if (dist < avoidDist) {
+			print("Player in range now!");
 			rb.AddForce(-playerDir * avoidForce * Time.deltaTime, ForceMode.Impulse);
 		}
 	}
+
+	
+
 }
