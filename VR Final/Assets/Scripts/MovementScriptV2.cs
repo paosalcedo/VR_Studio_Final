@@ -9,6 +9,7 @@ public class MovementScriptV2 : MonoBehaviour {
 	public float avoidDist;
 	Transform player;
 	Vector3 newDir;
+	Vector3 newVec;
 	public float avoidForce = 2f;
 	public float forwardForce = 50f;
 	public float redirectForce = 100f;
@@ -21,6 +22,12 @@ public class MovementScriptV2 : MonoBehaviour {
 	private Quaternion _lookRotation;
     private Vector3 _direction;
 
+	bool grabbed;
+
+	float angleDiff;
+	public bool startCountdown;
+	float rotCoolDown;
+
 	// Use this for initialization
 	void Start () {
 		startCountdown = false;
@@ -32,20 +39,30 @@ public class MovementScriptV2 : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		MoveForward();
-//		ClampAngularVelo();
-		AvoidPlayer();
+		if(!grabbed){
+			MoveForward();
+	//		ClampAngularVelo();
+			AvoidPlayer();
+		}
 	}
 
-	Vector3 newVec;
-	float angleDiff;
-	public bool startCountdown;
-	float rotCoolDown;
+
+	void GrabCreature(){
+		grabbed = true;
+	}
+
+	void ReleaseCreature(){
+		grabbed = false;
+	}
+
+	
 	void MoveForward ()
 	{
 //		Debug.Log (rb.velocity.magnitude);
 //		rb.AddForce (transform.forward * forwardForce * Time.deltaTime, ForceMode.Impulse);
-		transform.position += transform.forward * Time.deltaTime * forwardForce;
+		transform.position += transform.forward * forwardForce * Time.deltaTime;
+
+//		forwardForce *= 1.01f;
 		Ray ray = new Ray (transform.position, transform.forward);
 		Debug.DrawRay (ray.origin, ray.direction * raycastRange, Color.red);
 		

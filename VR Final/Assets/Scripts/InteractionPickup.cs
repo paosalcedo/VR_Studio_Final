@@ -42,10 +42,11 @@ public class InteractionPickup : MonoBehaviour {
 
 		if ( hand.GetStandardInteractionButton() == true ) { // on Vive controller, this is trigger
 
-
-
 			hand.AttachObject( gameObject );
-
+			gameObject.transform.localEulerAngles = new Vector3 (	gameObject.transform.localEulerAngles.x + 90f, 
+																	gameObject.transform.localEulerAngles.y, 
+																	gameObject.transform.localEulerAngles.z); 
+			GameObject.Find("Creature").SendMessage("GrabCreature");
 
 		}
 
@@ -68,9 +69,8 @@ public class InteractionPickup : MonoBehaviour {
 	void HandAttachedUpdate( Hand hand ) {
 
 		if ( hand.GetStandardInteractionButton() == false ) { // on Vive controller, this is trigger
-
 			hand.DetachObject( gameObject );
-
+			GameObject.Find("Creature").SendMessage("ReleaseCreature");
 		}
 
 	}
