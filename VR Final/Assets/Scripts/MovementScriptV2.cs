@@ -12,16 +12,22 @@ public class MovementScriptV2 : MonoBehaviour {
 	public float avoidForce = 2f;
 	public float forwardForce = 50f;
 	public float redirectForce = 100f;
-	public float stableForce = 50f;
+//	public float stableForce = 50f;
+	public float rotSpeed = 10f;
+	public float rotCooldownValue;
 	Rigidbody rb;
 	[SerializeField]float raycastRange = 5f;
+
+	private Quaternion _lookRotation;
+    private Vector3 _direction;
+
 	// Use this for initialization
 	void Start () {
+		startCountdown = false;
+		rotCoolDown = rotCooldownValue;
 //		The rigidbody of the Creature.
 		rb = GetComponent<Rigidbody>();
-//		player = GameObject.Find("FallbackObjects");
-		
-		player = GameObject.Find("Player").GetComponent<Player>().hmdTransform;
+ 		player = GameObject.Find("Player").GetComponent<Player>().hmdTransform;
 	}
 	
 	// Update is called once per frame
@@ -31,32 +37,57 @@ public class MovementScriptV2 : MonoBehaviour {
 		AvoidPlayer();
 	}
 
-	private bool rotating;
-	Vector3 to;
 	Vector3 newVec;
+	float angleDiff;
+	public bool startCountdown;
+	float rotCoolDown;
 	void MoveForward ()
 	{
-		rb.AddForce (transform.forward * forwardForce * Time.deltaTime, ForceMode.Impulse);
+//		Debug.Log (rb.velocity.magnitude);
+//		rb.AddForce (transform.forward * forwardForce * Time.deltaTime, ForceMode.Impulse);
+		transform.position += transform.forward * Time.deltaTime * forwardForce;
 		Ray ray = new Ray (transform.position, transform.forward);
 		Debug.DrawRay (ray.origin, ray.direction * raycastRange, Color.red);
+		
 		RaycastHit rayHit = new RaycastHit ();
+//		Debug.Log ("transform.eulerAngles: " + transform.eulerAngles);
+//		Debug.Log ("New Vec: " + newVec);
 		
 		if (Physics.Raycast (ray, out rayHit, raycastRange)) {
 			if (rayHit.transform.tag == "Wall") {
+//				startCountdown = true;
 				newVec = rayHit.normal + Random.insideUnitSphere;
-				rb.AddForce ((newVec) * redirectForce * Time.deltaTime, ForceMode.Impulse);
-				rotating = true;
-			}  	
+//				transform.forward = newVec; 
+// 				Version 1: add opposing force.
+//				rb.AddForce ((newVec) * redirectForce * Time.deltaTime, ForceMode.Impulse);	
+				
+			} 
+//			else {
+//				rotCoolDown = rotCooldownValue;
+//			}  	
 		}
+//		Debug.Log ("Angle difference: " + Vector3.Distance (transform.localEulerAngles, newVec));
+//		angleDiff = Vector3.Distance (transform.localEulerAngles, newVec);
 
-		if (rotating == true) {
-			if (Vector3.Distance (transform.eulerAngles.y, newVec.y) > 0.01f) {
-				transform.eulerAngles = Vector3.Lerp (transform.rotation.eulerAngles.y, newVec.y, Time.deltaTime);
-			} else {
-				rotating = false;
-				transform.eulerAngles = transform.forward;
-			}
-		}
+//		if (startCountdown == true) {
+//			rotCoolDown -= Time.deltaTime;
+//			if (rotCoolDown > 0f) {
+//				transform.Rotate (Vector3.up * rotSpeed * Time.deltaTime);
+//			} else {
+//				Debug.Log("stop rotation");
+//				startCountdown = false;
+//			} 
+//		}
+
+//		if (rayHit.transform.tag == "Wall") {
+//			if (Vector3.Distance (transform.eulerAngles, newVec) > 0.01f) {
+//				transform.Rotate(Vector3.up * rotSpeed * Time.deltaTime);
+//			} 
+//			else {
+//				transform.eulerAngles = transform.forward;
+//			}
+//		}
+
 //		MOVEMENT USING OTHER RAYS
 //		Ray rayRight = new Ray (transform.position, transform.right);
 //		Ray rayLeft = new Ray (transform.position, Vector3.left);
@@ -106,6 +137,13 @@ public class MovementScriptV2 : MonoBehaviour {
 //				rb.AddForce(rayHitBack.normal + Random.insideUnitSphere * redirectForce * Time.deltaTime, ForceMode.Impulse);
 //			} 
 //		}
+	
+
+         //create the rotation we need to be in to look at the target
+         _lookRotation = Quaternion.LookRotation(newVec);
+ 
+         //rotate us over time according to speed until we are in the required rotation
+         transform.rotation = Quaternion.Slerp(transform.rotation, _lookRotation, Time.deltaTime * rotSpeed);
 	}
 
 
@@ -115,7 +153,7 @@ public class MovementScriptV2 : MonoBehaviour {
 //		rb.angularVelocity.magnitude = Mathf.Clamp(rb.angularVelocity.magnitude, 0, 1);
 		if (rb.angularVelocity.magnitude > 1) {
 //			print("Applying stabilizing force");
-			rb.AddTorque(-rb.angularVelocity * stableForce * Time.deltaTime);			
+//			rb.AddTorque(-rb.angularVelocity * stableForce * Time.deltaTime);			
 		} 
 	}
 	
