@@ -12,5 +12,7 @@ public class UtilScript : MonoBehaviour {
 		float newRange = (newMax - newMin);
 		newValue = (((oldValue - oldMin) * newRange) / oldRange) + newMin;
 		return newValue;
+
+
 	}
 }
