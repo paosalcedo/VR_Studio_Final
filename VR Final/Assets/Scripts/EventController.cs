@@ -20,8 +20,8 @@ public class EventController : MonoBehaviour {
 
 	void Update(){
 		float value;
-		value = Util.RemapNumber (transform.rotation.y, -2, 2, lightMin, lightMax);
-//		value = UtilScript.remapRange (transform.rotation.y, -2, 2,lightMin,lightMax );
+//		value = Util.RemapNumber (transform.rotation.y, -2, 2, lightMin, lightMax);
+		value = UtilScript.remapRange (transform.rotation.y, -2, 2,lightMin,lightMax );
 		light.intensity = value;
 		Debug.Log (value);
 
