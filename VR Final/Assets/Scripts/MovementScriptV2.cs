@@ -41,8 +41,11 @@ public class MovementScriptV2 : MonoBehaviour {
 	void Update () {
 		if(!grabbed){
 			MoveForward();
-	//		ClampAngularVelo();
-			AvoidPlayer();
+			CheckForWave();
+			GoToPlayer();
+//			ClampAngularVelo();
+//			AvoidPlayer();
+
 		}
 	}
 
@@ -60,7 +63,15 @@ public class MovementScriptV2 : MonoBehaviour {
 	{
 //		Debug.Log (rb.velocity.magnitude);
 //		rb.AddForce (transform.forward * forwardForce * Time.deltaTime, ForceMode.Impulse);
-		transform.position += transform.forward * forwardForce * Time.deltaTime;
+		if (!playerIsCalling) {
+			transform.position += transform.forward * forwardForce * Time.deltaTime;
+
+	    	//create the rotation we need to be in to look at the target
+         	_lookRotation = Quaternion.LookRotation(newVec);
+ 
+         	//rotate us over time according to speed until we are in the required rotation
+         	transform.rotation = Quaternion.Slerp(transform.rotation, _lookRotation, Time.deltaTime * rotSpeed);
+		}
 
 //		forwardForce *= 1.01f;
 		Ray ray = new Ray (transform.position, transform.forward);
@@ -154,13 +165,7 @@ public class MovementScriptV2 : MonoBehaviour {
 //				rb.AddForce(rayHitBack.normal + Random.insideUnitSphere * redirectForce * Time.deltaTime, ForceMode.Impulse);
 //			} 
 //		}
-	
-
-         //create the rotation we need to be in to look at the target
-         _lookRotation = Quaternion.LookRotation(newVec);
- 
-         //rotate us over time according to speed until we are in the required rotation
-         transform.rotation = Quaternion.Slerp(transform.rotation, _lookRotation, Time.deltaTime * rotSpeed);
+     
 	}
 
 
@@ -185,6 +190,37 @@ public class MovementScriptV2 : MonoBehaviour {
 		}
 	}
 
+	bool playerIsCalling;
+
+	void GoToPlayer ()
+	{
+		float dist;
+		dist = Vector3.Distance (player.position, transform.position);
+		Vector3 playerDir = player.position - transform.position;
+		Debug.Log(transform.rotation.eulerAngles.y - _lookRotation.eulerAngles.y);
+
+		if (playerIsCalling) {
+			//create the rotation we need to be in to look at the target
+			_lookRotation = Quaternion.LookRotation (playerDir);
+ 			
+			//rotate us over time according to speed until we are in the required rotation
+			transform.rotation = Quaternion.Slerp (transform.rotation, _lookRotation, Time.deltaTime * rotSpeed);
+			if ((transform.rotation.eulerAngles.y - _lookRotation.eulerAngles.y) < 10f){
+				transform.position += playerDir * 1f * Time.deltaTime;	
+			}
+		}
+	}
+
+	void CheckForWave ()
+	{
+		if (Input.GetKey (KeyCode.Space)) {
+			playerIsCalling = true;
+			Debug.Log("player is calling is true");
+		} else {
+			playerIsCalling = false;
+			Debug.Log("player is calling is false");
+		}
+	} 
 	
 
 }
