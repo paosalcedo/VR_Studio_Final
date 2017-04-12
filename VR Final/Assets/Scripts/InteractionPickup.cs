@@ -48,6 +48,8 @@ public class InteractionPickup : MonoBehaviour {
 																	gameObject.transform.localEulerAngles.z); 
 			GameObject.Find("Creature").SendMessage("GrabCreature");
 
+			GameObject.Find("Creature").SendMessage("GoToPlayer");
+
 		}
 
 	}

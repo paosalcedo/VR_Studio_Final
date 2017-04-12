@@ -197,7 +197,7 @@ public class MovementScriptV2 : MonoBehaviour {
 		float dist;
 		dist = Vector3.Distance (player.position, transform.position);
 		Vector3 playerDir = player.position - transform.position;
-		Debug.Log(transform.rotation.eulerAngles.y - _lookRotation.eulerAngles.y);
+//		Debug.Log(transform.rotation.eulerAngles.y - _lookRotation.eulerAngles.y);
 
 		if (playerIsCalling) {
 			//create the rotation we need to be in to look at the target
@@ -215,12 +215,21 @@ public class MovementScriptV2 : MonoBehaviour {
 	{
 		if (Input.GetKey (KeyCode.Space)) {
 			playerIsCalling = true;
-			Debug.Log("player is calling is true");
+//			Debug.Log("player is calling is true");
 		} else {
 			playerIsCalling = false;
-			Debug.Log("player is calling is false");
+//			Debug.Log("player is calling is false");
 		}
-	} 
+	}    
+
+	void PlayerCallOn(){
+		playerIsCalling = true;
+	}
+
+	void PLayerCallOff ()
+	{
+		playerIsCalling = false;
+	}
 	
 
 }
