@@ -8,9 +8,9 @@ public class EventController : MonoBehaviour {
 
 	public Light light;
 
-
 	public ParticleSystem bubbles;
 
+	public Transform marker;
 
 	public float lightMax, lightMin;
 
@@ -19,6 +19,14 @@ public class EventController : MonoBehaviour {
 	public Color color1;
 	public Color color2;
 
+	public float angleTrigger;
+	public GameObject[] gameObjectHolder;
+
+	GameObject selectedGameObject;
+
+	public Camera camera; // Remove before building
+
+	[SerializeField] GameObject creature;
 
 	void Start(){
 
@@ -31,6 +39,26 @@ public class EventController : MonoBehaviour {
 		ChangeLightIntensity (lightMin, lightMax);
 //		ChangeExposure (lightMin, lightMax);
 		EmitBubbles (emitMin, emitMax);
+
+
+		Vector3 camLookDir = camera.transform.forward;
+
+		for (int i = 0; i < gameObjectHolder.Length; i++) {
+			Vector3 vectorFromCameraToTarget = gameObjectHolder [i].transform.position - camera.transform.position;
+
+			float Angle = Vector3.Angle (camLookDir, vectorFromCameraToTarget);
+
+			if (creature.GetComponent<MovementScriptV2> ().grabbed) {
+
+				if (Angle < angleTrigger) {
+					selectedGameObject = gameObjectHolder [i];
+
+					selectedGameObject.transform.localScale = new Vector3 (selectedGameObject.transform.localScale.x, 
+						ScaleGameObject (gameObjectHolder [i].transform, 1, 4), 
+						selectedGameObject.transform.localScale.z);
+				}
+			}
+		}
 
 
 	}
@@ -51,14 +79,28 @@ public class EventController : MonoBehaviour {
 	public void ChangeExposure(float min, float max){
 		float exposure = UtilScript.remapRange (transform.rotation.y, -1, 1,min,max );
 		RenderSettings.skybox.SetFloat ("_Exposure", exposure);
-//		print (exposure);
 	}
 
 	public void EmitBubbles(float min, float max){
 		float rate = UtilScript.remapRange (transform.rotation.y, -1, 1, min, max);
 		var emission = bubbles.emission;
-		emission.rateOverTime = rate;
-		
+		emission.rateOverTime = rate;	
 	}
+
+	public void CreateStructure(){
+		GameObject myGameObject = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
+		myGameObject.transform.position = marker.position;
+	}
+
+	public float ScaleGameObject(Transform t, float min, float max){
+		Vector3 scale = t.localScale;
+		scale.y = UtilScript.remapRange (transform.rotation.y, -1, 1, min, max);
+		Debug.Log (scale.y);
+
+		return scale.y;
+
+	}
+
+
 
 }
