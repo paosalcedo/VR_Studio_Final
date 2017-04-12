@@ -22,7 +22,7 @@ public class MovementScriptV2 : MonoBehaviour {
 	private Quaternion _lookRotation;
     private Vector3 _direction;
 
-	bool grabbed;
+	public bool grabbed;
 
 	float angleDiff;
 	public bool startCountdown;
@@ -39,13 +39,13 @@ public class MovementScriptV2 : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+		// player only moves on its own
 		if(!grabbed){
 			MoveForward();
-			CheckForWave();
+//			CheckForWave();
 			GoToPlayer();
 //			ClampAngularVelo();
 //			AvoidPlayer();
-
 		}
 	}
 
@@ -215,20 +215,24 @@ public class MovementScriptV2 : MonoBehaviour {
 	{
 		if (Input.GetKey (KeyCode.Space)) {
 			playerIsCalling = true;
-//			Debug.Log("player is calling is true");
+			Debug.Log("player is calling is true");
 		} else {
 			playerIsCalling = false;
-//			Debug.Log("player is calling is false");
+			Debug.Log("player is calling is false");
 		}
 	}    
 
 	void PlayerCallOn(){
 		playerIsCalling = true;
+		Debug.Log("player is calling is true");
+
 	}
 
-	void PLayerCallOff ()
+	void PlayerCallOff ()
 	{
 		playerIsCalling = false;
+		Debug.Log("player is calling is false");
+
 	}
 	
 

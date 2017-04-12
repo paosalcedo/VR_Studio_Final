@@ -46,13 +46,11 @@ public class InteractionPickup : MonoBehaviour {
 			gameObject.transform.localEulerAngles = new Vector3 (	gameObject.transform.localEulerAngles.x + 90f, 
 																	gameObject.transform.localEulerAngles.y, 
 																	gameObject.transform.localEulerAngles.z); 
-			GameObject.Find("Creature").SendMessage("GrabCreature");
-
-			GameObject.Find("Creature").SendMessage("GoToPlayer");
-
+			GameObject.Find("Creature").SendMessage("GrabCreature"); 
+//			GameObject.Find("Creature").SendMessage("GoToPlayer");
 		}
 
-	}
+  	}
 
 
 

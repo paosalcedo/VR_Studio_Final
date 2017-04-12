@@ -7,24 +7,38 @@ using Valve.VR.InteractionSystem;
 public class GestureToCreature : MonoBehaviour {
 	 		
 	Vector3 handVelo;
-	[SerializeField]float gestureMinVelo;
+	float gestureMinVelo;
 	// Use this for initialization
 	void Start () {
-		 
-		handVelo = GetComponent<VelocityEstimator>().GetVelocityEstimate();
-		Debug.Log("hand velocity is " + handVelo);
+		gestureMinVelo = 5f;
+ 		GetComponent<VelocityEstimator>().BeginEstimatingVelocity();
 	}
 	
 	// Update is called once per frame
-	void Update () {
-		CheckHandVelo();
+	void Update ()
+	{
+		handVelo = GetComponent<VelocityEstimator> ().GetVelocityEstimate ();
+		CheckHandVelo ();
+//		if (Input.GetKeyDown (KeyCode.W)) {
+//			Debug.Log("STOP ESTIMATING!");
+// 			GetComponent<VelocityEstimator>().FinishEstimatingVelocity();
+//		}
+//		if (Input.GetKeyDown (KeyCode.S)) {
+//			Debug.Log("START ESTIMATING");
+// 			GetComponent<VelocityEstimator>().BeginEstimatingVelocity();
+//		}
+
 	}
 
 	void CheckHandVelo ()
 	{
+//		Debug.Log(handVelo.magnitude);
+		Debug.Log("hand velocity is " + handVelo.magnitude);
+
 		if (handVelo.magnitude > gestureMinVelo) {
-			GameObject.Find ("Creature").SendMessage ("PlayerCallOn");
-		} else if (handVelo.magnitude < gestureMinVelo) {
+			GameObject.Find("Creature").SendMessage("PlayerCallOn");
+		} 
+		else if (handVelo.magnitude < gestureMinVelo) {
 			GameObject.Find("Creature").SendMessage("PlayerCallOff");
 		}
 	}
