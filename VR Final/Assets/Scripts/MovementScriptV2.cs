@@ -6,22 +6,23 @@ using Valve.VR.InteractionSystem;
 public class MovementScriptV2 : MonoBehaviour {
 	
 //	GameObject player;
-	public float avoidDist;
+//	public float avoidDist;
 	Transform player;
 	Vector3 newDir;
 	Vector3 newVec;
-	public float avoidForce = 2f;
+//	public float avoidForce = 2f;
 	public float forwardForce = 50f;
 	public float redirectForce = 100f;
 //	public float stableForce = 50f;
 	public float rotSpeed = 10f;
-	public float rotCooldownValue;
+//	public float rotCooldownValue;
 	Rigidbody rb;
 	[SerializeField]float raycastRange = 5f;
 
 	private Quaternion _lookRotation;
     private Vector3 _direction;
 
+	public bool playerIsCalling;
 	public bool grabbed;
 
 	float angleDiff;
@@ -30,8 +31,8 @@ public class MovementScriptV2 : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		startCountdown = false;
-		rotCoolDown = rotCooldownValue;
+//		startCountdown = false;
+//		rotCoolDown = rotCooldownValue;
 //		The rigidbody of the Creature.
 		rb = GetComponent<Rigidbody>();
  		player = GameObject.Find("Player").GetComponent<Player>().hmdTransform;
@@ -42,7 +43,7 @@ public class MovementScriptV2 : MonoBehaviour {
 		// player only moves on its own
 		if(!grabbed){
 			MoveForward();
-			CheckForWave();
+//			CheckForWave();
 			GoToPlayer();
 //			ClampAngularVelo();
 //			AvoidPlayer();
@@ -179,18 +180,16 @@ public class MovementScriptV2 : MonoBehaviour {
 		} 
 	}
 	
-	void AvoidPlayer ()
-	{
-		float dist;
-		dist = Vector3.Distance (player.position, transform.position);
-		Vector3 playerDir = player.position - transform.position;
-		if (dist < avoidDist) {
-			print("Player in range now!");
-			rb.AddForce(-playerDir * avoidForce * Time.deltaTime, ForceMode.Impulse);
-		}
-	}
-
-	bool playerIsCalling;
+//	void AvoidPlayer ()
+//	{
+//		float dist;
+//		dist = Vector3.Distance (player.position, transform.position);
+//		Vector3 playerDir = player.position - transform.position;
+//		if (dist < avoidDist) {
+//			print("Player in range now!");
+//			rb.AddForce(-playerDir * avoidForce * Time.deltaTime, ForceMode.Impulse);
+//		}
+//	}
 
 	void GoToPlayer ()
 	{
@@ -211,7 +210,7 @@ public class MovementScriptV2 : MonoBehaviour {
 		}
 	}
 
-	void CheckForWave ()
+	void CheckForWave () //back up function without VR. 
 	{
 		if (Input.GetKey (KeyCode.Space)) {
 			playerIsCalling = true;

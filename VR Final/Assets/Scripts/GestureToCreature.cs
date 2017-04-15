@@ -12,6 +12,7 @@ public class GestureToCreature : MonoBehaviour {
 	void Start () {
 		gestureMinVelo = 5f;
  		GetComponent<VelocityEstimator>().BeginEstimatingVelocity();
+		handVelo = Vector3.zero;
 	}
 	
 	// Update is called once per frame
@@ -32,8 +33,7 @@ public class GestureToCreature : MonoBehaviour {
 
 	void CheckHandVelo ()
 	{
-//		Debug.Log(handVelo.magnitude);
-		Debug.Log("hand velocity is " + handVelo.magnitude);
+// 		Debug.Log("hand velocity is " + handVelo.magnitude);
 
 		if (handVelo.magnitude > gestureMinVelo) {
 			GameObject.Find("Creature").SendMessage("PlayerCallOn");
