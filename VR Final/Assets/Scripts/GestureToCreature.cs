@@ -7,10 +7,10 @@ using Valve.VR.InteractionSystem;
 public class GestureToCreature : MonoBehaviour {
 	 		
 	Vector3 handVelo;
-	float gestureMinVelo;
+	public float gestureMinVelo;
 	// Use this for initialization
 	void Start () {
-		gestureMinVelo = 5f;
+//		gestureMinVelo = 5f;
  		GetComponent<VelocityEstimator>().BeginEstimatingVelocity();
 		handVelo = Vector3.zero;
 	}

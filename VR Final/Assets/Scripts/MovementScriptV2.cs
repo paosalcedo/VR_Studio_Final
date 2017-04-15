@@ -50,23 +50,29 @@ public class MovementScriptV2 : MonoBehaviour {
 		}
 	}
 
-
-	void GrabCreature(){
-		grabbed = true;
+	void PlayerCallOn(){
+		playerIsCalling = true;
+		Debug.Log("player is calling is true");
 	}
 
-	void ReleaseCreature(){
-		grabbed = false;
+	void PlayerCallOff ()
+	{
+		playerIsCalling = false;
+		Debug.Log("player is calling is false");
 	}
 
 	
 	void MoveForward ()
 	{
+		float moveForwardInterval;
 //		Debug.Log (rb.velocity.magnitude);
 //		rb.AddForce (transform.forward * forwardForce * Time.deltaTime, ForceMode.Impulse);
 		if (!playerIsCalling) {
 			transform.position += transform.forward * forwardForce * Time.deltaTime;
-
+//			moveForwardInterval -= Time.deltaTime;
+//			if (moveForwardInterval <= 0f) {
+//				forwardForce = 0f;
+//			}
 	    	//create the rotation we need to be in to look at the target
          	_lookRotation = Quaternion.LookRotation(newVec);
  
@@ -169,6 +175,25 @@ public class MovementScriptV2 : MonoBehaviour {
      
 	}
 
+	void GoToPlayer ()
+	{
+		float dist;
+		dist = Vector3.Distance (player.position, transform.position);
+		Vector3 playerDir = player.position - transform.position;
+//		Debug.Log(transform.rotation.eulerAngles.y - _lookRotation.eulerAngles.y);
+
+		if (playerIsCalling) {
+			//create the rotation we need to be in to look at the target
+			_lookRotation = Quaternion.LookRotation (playerDir);
+ 			
+			//rotate us over time according to speed until we are in the required rotation
+			transform.rotation = Quaternion.Slerp (transform.rotation, _lookRotation, Time.deltaTime * rotSpeed);
+			if ((transform.rotation.eulerAngles.y - _lookRotation.eulerAngles.y) < 10f){
+				transform.position += playerDir * 1f * Time.deltaTime;	
+			}
+		}
+	}
+
 
 	void ClampAngularVelo ()
 	{
@@ -191,24 +216,7 @@ public class MovementScriptV2 : MonoBehaviour {
 //		}
 //	}
 
-	void GoToPlayer ()
-	{
-		float dist;
-		dist = Vector3.Distance (player.position, transform.position);
-		Vector3 playerDir = player.position - transform.position;
-//		Debug.Log(transform.rotation.eulerAngles.y - _lookRotation.eulerAngles.y);
-
-		if (playerIsCalling) {
-			//create the rotation we need to be in to look at the target
-			_lookRotation = Quaternion.LookRotation (playerDir);
- 			
-			//rotate us over time according to speed until we are in the required rotation
-			transform.rotation = Quaternion.Slerp (transform.rotation, _lookRotation, Time.deltaTime * rotSpeed);
-			if ((transform.rotation.eulerAngles.y - _lookRotation.eulerAngles.y) < 10f){
-				transform.position += playerDir * 1f * Time.deltaTime;	
-			}
-		}
-	}
+	
 
 	void CheckForWave () //back up function without VR. 
 	{
@@ -219,18 +227,10 @@ public class MovementScriptV2 : MonoBehaviour {
 			playerIsCalling = false;
 			Debug.Log("player is calling is false");
 		}
-	}    
-
-	void PlayerCallOn(){
-		playerIsCalling = true;
-		Debug.Log("player is calling is true");
 	}
 
-	void PlayerCallOff ()
-	{
-		playerIsCalling = false;
-		Debug.Log("player is calling is false");
+	void Hover(){
+		
 	}
-	
 
 }
