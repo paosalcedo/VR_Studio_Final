@@ -36,17 +36,21 @@ public class InteractionPickup : MonoBehaviour {
 
 	// this happens whenever a hand is near this object
 
-	void HandHoverUpdate( Hand hand ) {
+	void HandHoverUpdate (Hand hand)
+	{
 
 		// this applies to either Vive controller
 
-		if ( hand.GetStandardInteractionButton() == true ) { // on Vive controller, this is trigger
+		if (hand.GetStandardInteractionButton () == true) { // on Vive controller, this is trigger
 
-			hand.AttachObject( gameObject );
-			gameObject.transform.localEulerAngles = new Vector3 (	gameObject.transform.localEulerAngles.x + 90f, 
-																	gameObject.transform.localEulerAngles.y, 
-																	gameObject.transform.localEulerAngles.z); 
-			GameObject.Find("Creature").SendMessage("GrabCreature"); 
+			hand.AttachObject (gameObject);
+			gameObject.transform.localEulerAngles = new Vector3 (gameObject.transform.localEulerAngles.x + 90f, 
+				gameObject.transform.localEulerAngles.y, 
+				gameObject.transform.localEulerAngles.z); 
+//			GameObject.Find("Creature").SendMessage("GrabCreature"); 
+			if (gameObject.tag == "Creature") {
+				gameObject.GetComponent<MovementScriptV2>().grabbed = true;
+			}
 //			GameObject.Find("Creature").SendMessage("GoToPlayer");
 		}
 
@@ -70,7 +74,10 @@ public class InteractionPickup : MonoBehaviour {
 
 		if ( hand.GetStandardInteractionButton() == false ) { // on Vive controller, this is trigger
 			hand.DetachObject( gameObject );
-			GameObject.Find("Creature").SendMessage("ReleaseCreature");
+//			GameObject.Find("Creature").SendMessage("ReleaseCreature");
+			if (gameObject.tag == "Creature") {
+				gameObject.GetComponent<MovementScriptV2>().grabbed = false;
+			}
 		}
 
 	}

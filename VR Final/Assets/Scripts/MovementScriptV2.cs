@@ -42,7 +42,7 @@ public class MovementScriptV2 : MonoBehaviour {
 		// player only moves on its own
 		if(!grabbed){
 			MoveForward();
-//			CheckForWave();
+			CheckForWave();
 			GoToPlayer();
 //			ClampAngularVelo();
 //			AvoidPlayer();
@@ -225,14 +225,12 @@ public class MovementScriptV2 : MonoBehaviour {
 	void PlayerCallOn(){
 		playerIsCalling = true;
 		Debug.Log("player is calling is true");
-
 	}
 
 	void PlayerCallOff ()
 	{
 		playerIsCalling = false;
 		Debug.Log("player is calling is false");
-
 	}
 	
 
