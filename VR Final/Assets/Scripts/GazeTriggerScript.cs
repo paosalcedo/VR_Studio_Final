@@ -31,7 +31,7 @@ public class GazeTriggerScript : MonoBehaviour {
 
 			if (Angle < angleTrigger) {
 				selectedGameObject = gameObjectHolder [i];
-				Debug.Log (selectedGameObject.name);
+//				Debug.Log (selectedGameObject.name);
 			}
 		}
 

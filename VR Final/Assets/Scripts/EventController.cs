@@ -24,12 +24,15 @@ public class EventController : MonoBehaviour {
 
 	GameObject selectedGameObject;
 
+	float angleDifference;
+	float yRotation;
+
 	public Camera camera; // Remove before building
 
 	[SerializeField] GameObject creature;
 
 	void Start(){
-
+		yRotation = transform.rotation.y;
 
 	}
 
@@ -37,34 +40,61 @@ public class EventController : MonoBehaviour {
 
 		ChangeSkyColor (color1, color2);
 		ChangeLightIntensity (lightMin, lightMax);
-//		ChangeExposure (lightMin, lightMax);
+		//		ChangeExposure (lightMin, lightMax);
 		EmitBubbles (emitMin, emitMax);
 
-
-		Vector3 camLookDir = camera.transform.forward;
-
+		Vector3 camLookDir = Camera.main.transform.forward;
+		
 		for (int i = 0; i < gameObjectHolder.Length; i++) {
-			Vector3 vectorFromCameraToTarget = gameObjectHolder [i].transform.position - camera.transform.position;
-
+			Vector3 vectorFromCameraToTarget = gameObjectHolder [i].transform.position - Camera.main.transform.position;
+		
 			float Angle = Vector3.Angle (camLookDir, vectorFromCameraToTarget);
-
-			if (creature.GetComponent<MovementScriptV2> ().grabbed) {
-
-				if (Angle < angleTrigger) {
-					selectedGameObject = gameObjectHolder [i];
-
-					selectedGameObject.transform.localScale = new Vector3 (selectedGameObject.transform.localScale.x, 
-						ScaleGameObject (gameObjectHolder [i].transform, 1, 4), 
-						selectedGameObject.transform.localScale.z);
-				}
+		
+			if (Angle < angleTrigger) {
+				selectedGameObject = gameObjectHolder [i];
+		
+				selectedGameObject.transform.localScale = new Vector3 (selectedGameObject.transform.localScale.x, 
+				ScaleGameObject (gameObjectHolder [i].transform, 1, 4), 
+				selectedGameObject.transform.localScale.z);
 			}
 		}
 
 
+
+//
+//		if (creature.GetComponent<MovementScriptV2> ().grabbed) {
+//
+//			ChangeSkyColor (color1, color2);
+//			ChangeLightIntensity (lightMin, lightMax);
+////		ChangeExposure (lightMin, lightMax);
+//			EmitBubbles (emitMin, emitMax);
+//
+//
+//			Vector3 camLookDir = Camera.main.transform.forward;
+//
+//			for (int i = 0; i < gameObjectHolder.Length; i++) {
+//				Vector3 vectorFromCameraToTarget = gameObjectHolder [i].transform.position - Camera.main.transform.position;
+//
+//				float Angle = Vector3.Angle (camLookDir, vectorFromCameraToTarget);
+//
+//				if (Angle < angleTrigger) {
+//					selectedGameObject = gameObjectHolder [i];
+//
+//					selectedGameObject.transform.localScale = new Vector3 (selectedGameObject.transform.localScale.x, 
+//						ScaleGameObject (gameObjectHolder [i].transform, 1, 4), 
+//						selectedGameObject.transform.localScale.z);
+//				}
+//			}
+//		}
+//
+
+		angleDifference = transform.rotation.y - yRotation;
+
 	}
+		
 
 	public void ChangeSkyColor (Color c1, Color c2){
-		float colorChange = UtilScript.remapRange (transform.rotation.y, -1, 1,0,1 );
+		float colorChange = UtilScript.remapRange (angleDifference, -1, 1,0,1 );
 		Color lerpedColor = Color.LerpUnclamped(c1, c2, colorChange);
 
 		RenderSettings.skybox.SetColor ("_SkyTint", lerpedColor); 
@@ -72,7 +102,7 @@ public class EventController : MonoBehaviour {
 
 	public void ChangeLightIntensity(float min, float max){
 
-		float value = UtilScript.remapRange (transform.rotation.y, -1, 1,lightMin,lightMax );
+		float value = UtilScript.remapRange (angleDifference, -1, 1,lightMin,lightMax );
 		light.intensity = value;
 	}
 
@@ -82,7 +112,7 @@ public class EventController : MonoBehaviour {
 	}
 
 	public void EmitBubbles(float min, float max){
-		float rate = UtilScript.remapRange (transform.rotation.y, -1, 1, min, max);
+		float rate = UtilScript.remapRange (angleDifference, -1, 1, min, max);
 		var emission = bubbles.emission;
 		emission.rateOverTime = rate;	
 	}
@@ -94,7 +124,7 @@ public class EventController : MonoBehaviour {
 
 	public float ScaleGameObject(Transform t, float min, float max){
 		Vector3 scale = t.localScale;
-		scale.y = UtilScript.remapRange (transform.rotation.y, -1, 1, min, max);
+		scale.y = UtilScript.remapRange (angleDifference, -1, 1, min, max);
 		Debug.Log (scale.y);
 
 		return scale.y;

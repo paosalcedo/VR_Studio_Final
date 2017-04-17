@@ -43,7 +43,7 @@ public class MovementScriptV2 : MonoBehaviour {
 		// player only moves on its own
 		if(!grabbed){
 			MoveForward();
-//			CheckForWave();
+			CheckForWave();
 			GoToPlayer();
 //			ClampAngularVelo();
 //			AvoidPlayer();
