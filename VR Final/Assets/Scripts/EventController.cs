@@ -43,10 +43,10 @@ public class EventController : MonoBehaviour {
 		//		ChangeExposure (lightMin, lightMax);
 		EmitBubbles (emitMin, emitMax);
 
-		Vector3 camLookDir = Camera.main.transform.forward;
+		Vector3 camLookDir = camera.transform.forward;
 		
 		for (int i = 0; i < gameObjectHolder.Length; i++) {
-			Vector3 vectorFromCameraToTarget = gameObjectHolder [i].transform.position - Camera.main.transform.position;
+			Vector3 vectorFromCameraToTarget = gameObjectHolder [i].transform.position - camera.transform.position;
 		
 			float Angle = Vector3.Angle (camLookDir, vectorFromCameraToTarget);
 		
