@@ -43,7 +43,7 @@ public class MovementScriptV2 : MonoBehaviour {
 		// player only moves on its own
 		if(!grabbed){
 			MoveForward();
-			CheckForWave();
+//			CheckForWave();
 			GoToPlayer();
 //			ClampAngularVelo();
 //			AvoidPlayer();
@@ -68,7 +68,7 @@ public class MovementScriptV2 : MonoBehaviour {
 //		Debug.Log (rb.velocity.magnitude);
 //		rb.AddForce (transform.forward * forwardForce * Time.deltaTime, ForceMode.Impulse);
 		if (!playerIsCalling) {
-			transform.position += transform.forward * forwardForce * Time.deltaTime;
+ 			transform.position += transform.forward * forwardForce * Time.deltaTime;
 //			moveForwardInterval -= Time.deltaTime;
 //			if (moveForwardInterval <= 0f) {
 //				forwardForce = 0f;
@@ -90,89 +90,9 @@ public class MovementScriptV2 : MonoBehaviour {
 		
 		if (Physics.Raycast (ray, out rayHit, raycastRange)) {
 			if (rayHit.transform.tag == "Wall") {
-//				startCountdown = true;
-				newVec = rayHit.normal + Random.insideUnitSphere;
-//				transform.forward = newVec; 
-// 				Version 1: add opposing force.
-//				rb.AddForce ((newVec) * redirectForce * Time.deltaTime, ForceMode.Impulse);	
-				
+				newVec = rayHit.normal + Random.insideUnitSphere;				
 			} 
-//			else {
-//				rotCoolDown = rotCooldownValue;
-//			}  	
-		}
-//		Debug.Log ("Angle difference: " + Vector3.Distance (transform.localEulerAngles, newVec));
-//		angleDiff = Vector3.Distance (transform.localEulerAngles, newVec);
-
-//		if (startCountdown == true) {
-//			rotCoolDown -= Time.deltaTime;
-//			if (rotCoolDown > 0f) {
-//				transform.Rotate (Vector3.up * rotSpeed * Time.deltaTime);
-//			} else {
-//				Debug.Log("stop rotation");
-//				startCountdown = false;
-//			} 
-//		}
-
-//		if (rayHit.transform.tag == "Wall") {
-//			if (Vector3.Distance (transform.eulerAngles, newVec) > 0.01f) {
-//				transform.Rotate(Vector3.up * rotSpeed * Time.deltaTime);
-//			} 
-//			else {
-//				transform.eulerAngles = transform.forward;
-//			}
-//		}
-
-//		MOVEMENT USING OTHER RAYS
-//		Ray rayRight = new Ray (transform.position, transform.right);
-//		Ray rayLeft = new Ray (transform.position, Vector3.left);
-//		Ray rayBack = new Ray (transform.position, -transform.forward);
-//		Ray rayUp = new Ray (transform.position, transform.up); 
-//		Ray rayDown = new Ray (transform.position, Vector3.down);
-//			
-//		RaycastHit rayHitUp = new RaycastHit ();
-//		RaycastHit rayHitDown = new RaycastHit ();
-//		RaycastHit rayHitLeft = new RaycastHit ();
-//		RaycastHit rayHitRight = new RaycastHit ();
-//		RaycastHit rayHitBack = new RaycastHit ();
-//
-//		Debug.DrawRay (rayRight.origin, rayRight.direction * raycastRange, Color.red);
-//		Debug.DrawRay (rayLeft.origin, rayLeft.direction * raycastRange, Color.red);	
-//		Debug.DrawRay (rayUp.origin, rayUp.direction * raycastRange, Color.red);
-//		Debug.DrawRay (rayDown.origin, rayDown.direction * raycastRange, Color.red);		
-//		Debug.DrawRay (rayBack.origin, rayBack.direction * raycastRange, Color.red);		
-//		
-//
-//		if (Physics.Raycast (rayUp, out rayHitUp, raycastRange)) {
-//			if (rayHitUp.transform.tag == "Wall") {
-//				rb.AddForce(rayHitUp.normal + Random.insideUnitSphere * redirectForce * Time.deltaTime, ForceMode.Impulse);	
-//			} 
-//		}  
-//		
-//		if (Physics.Raycast (rayDown, out rayHitDown, raycastRange)) {
-//			if (rayHitDown.transform.tag == "Wall") {
-//				rb.AddForce(rayHitDown.normal + Random.insideUnitSphere * redirectForce * Time.deltaTime, ForceMode.Impulse);	
-//			} 
-//		}
-//
-//		if (Physics.Raycast (rayLeft, out rayHitLeft, raycastRange)) {
-//			if (rayHitLeft.transform.tag == "Wall") {
-//				rb.AddForce(rayHitLeft.normal + Random.insideUnitSphere * redirectForce * Time.deltaTime, ForceMode.Impulse);
-//			}
-//		}
-//
-//		if (Physics.Raycast (rayRight, out rayHitRight, raycastRange)) {
-//			if (rayHitRight.transform.tag == "Wall") {
-//				rb.AddForce(rayHitRight.normal + Random.insideUnitSphere * redirectForce * Time.deltaTime, ForceMode.Impulse);
-//			} 
-//		}
-//		
-//		if (Physics.Raycast (rayBack, out rayHitBack, raycastRange)) {
-//			if (rayHitBack.transform.tag == "Wall") {
-//				rb.AddForce(rayHitBack.normal + Random.insideUnitSphere * redirectForce * Time.deltaTime, ForceMode.Impulse);
-//			} 
-//		}
-     
+		}     
 	}
 
 	void GoToPlayer ()
@@ -183,9 +103,9 @@ public class MovementScriptV2 : MonoBehaviour {
 //		Debug.Log(transform.rotation.eulerAngles.y - _lookRotation.eulerAngles.y);
 
 		if (playerIsCalling) {
-			//create the rotation we need to be in to look at the target
+			//make the creature look at the player
 			_lookRotation = Quaternion.LookRotation (playerDir);
- 			
+			newVec = playerDir;
 			//rotate us over time according to speed until we are in the required rotation
 			transform.rotation = Quaternion.Slerp (transform.rotation, _lookRotation, Time.deltaTime * rotSpeed);
 			if ((transform.rotation.eulerAngles.y - _lookRotation.eulerAngles.y) < 10f){
