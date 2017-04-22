@@ -7,6 +7,7 @@ public class MovementScriptV2 : MonoBehaviour {
 	
 //	GameObject player;
 //	public float avoidDist;
+
 	Transform player;
 	Vector3 newDir;
 	Vector3 newVec;
@@ -24,6 +25,7 @@ public class MovementScriptV2 : MonoBehaviour {
 
 	public bool playerIsCalling;
 	public bool grabbed;
+	public bool crumbsAbound;
 
 	float angleDiff;
 	public bool startCountdown;
@@ -41,13 +43,11 @@ public class MovementScriptV2 : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		// player only moves on its own
-		if(!grabbed){
-			MoveForward();
-//			CheckForWave();
-			GoToPlayer();
-//			ClampAngularVelo();
-//			AvoidPlayer();
-		}
+		if(!grabbed)//insert bool for crumbs here.)
+		{
+//			MoveForward();
+//			GoToPlayer();
+ 		}
 	}
 
 	void PlayerCallOn(){
@@ -67,7 +67,7 @@ public class MovementScriptV2 : MonoBehaviour {
 		float moveForwardInterval;
 //		Debug.Log (rb.velocity.magnitude);
 //		rb.AddForce (transform.forward * forwardForce * Time.deltaTime, ForceMode.Impulse);
-		if (!playerIsCalling) {
+		if (!playerIsCalling || playerIsCalling) {
  			transform.position += transform.forward * forwardForce * Time.deltaTime;
 //			moveForwardInterval -= Time.deltaTime;
 //			if (moveForwardInterval <= 0f) {
@@ -97,8 +97,8 @@ public class MovementScriptV2 : MonoBehaviour {
 
 	void GoToPlayer ()
 	{
-		float dist;
-		dist = Vector3.Distance (player.position, transform.position);
+//		float dist;
+//		dist = Vector3.Distance (player.position, transform.position);
 		Vector3 playerDir = player.position - transform.position;
 //		Debug.Log(transform.rotation.eulerAngles.y - _lookRotation.eulerAngles.y);
 
@@ -112,45 +112,6 @@ public class MovementScriptV2 : MonoBehaviour {
 				transform.position += playerDir * 1f * Time.deltaTime;	
 			}
 		}
-	}
-
-
-	void ClampAngularVelo ()
-	{
-//		rb.angularVelocity.Normalize ();
-//		rb.angularVelocity.magnitude = Mathf.Clamp(rb.angularVelocity.magnitude, 0, 1);
-		if (rb.angularVelocity.magnitude > 1) {
-//			print("Applying stabilizing force");
-//			rb.AddTorque(-rb.angularVelocity * stableForce * Time.deltaTime);			
-		} 
-	}
-	
-//	void AvoidPlayer ()
-//	{
-//		float dist;
-//		dist = Vector3.Distance (player.position, transform.position);
-//		Vector3 playerDir = player.position - transform.position;
-//		if (dist < avoidDist) {
-//			print("Player in range now!");
-//			rb.AddForce(-playerDir * avoidForce * Time.deltaTime, ForceMode.Impulse);
-//		}
-//	}
-
-	
-
-	void CheckForWave () //back up function without VR. 
-	{
-		if (Input.GetKey (KeyCode.Space)) {
-			playerIsCalling = true;
-			Debug.Log("player is calling is true");
-		} else {
-			playerIsCalling = false;
-			Debug.Log("player is calling is false");
-		}
-	}
-
-	void Hover(){
-		
 	}
 
 }
