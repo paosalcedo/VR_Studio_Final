@@ -38,8 +38,8 @@ public class InteractionPickup : MonoBehaviour {
 
 	void HandHoverUpdate (Hand hand)
 	{
-
-		// this applies to either Vive controller
+		
+ 		// this applies to either Vive controller
 
 		if (hand.GetStandardInteractionButton () == true) { // on Vive controller, this is trigger
 
