@@ -6,6 +6,7 @@ using Valve.VR.InteractionSystem;
 public class MoveToCrumb : MonoBehaviour {
 
 	public List<GameObject> crumbs = new List<GameObject> ();
+//	public GameObject[] ghostcrumbs;
 //	public GameObject[] crumbs;
 	Quaternion _lookRotation;
 	float rotSpeed = 1f;
@@ -31,20 +32,26 @@ public class MoveToCrumb : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if (!MovementScriptV2.instance.grabbed) {
+//		ghostcrumbs = new GameObject[crumbs.Count];
+//		Debug.Log ("Ghost crumbs: " + ghostcrumbs.Length);
+		if (!MovementScriptV2.instance.grabbed && crumbsInScene == true) {
 			FindCrumb ();
 		}
+		
 		Debug.Log (crumbs.Count);
-		if (crumbs.Count > 1) {
+		if (crumbs[0] != null) {
 			crumbsInScene = true;
-		} else if (crumbs.Count <= 1) {
+		} 
+
+		if (crumbs.Count <= 1) {
 			crumbsInScene = false;		
 		}
  	}
 
 	void FindCrumb ()
 	{
- 		Vector3 crumbDir;
+		Debug.Log ("CRUMB SEEKING ACTIVE");
+		Vector3 crumbDir;
 
 		crumbDir = crumbs [0].transform.position - transform.position;
  

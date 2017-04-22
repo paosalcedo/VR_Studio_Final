@@ -25,11 +25,6 @@ public class MovementScriptV2 : MonoBehaviour {
 
 	public bool playerIsCalling;
 	public bool grabbed;
-	public bool crumbsAbound;
-
-	float angleDiff;
-	public bool startCountdown;
-	float rotCoolDown;
 
 	public static MovementScriptV2 instance;
 	// Use this for initialization
@@ -75,15 +70,10 @@ public class MovementScriptV2 : MonoBehaviour {
 	
 	void MoveForward ()
 	{
-		float moveForwardInterval;
-//		Debug.Log (rb.velocity.magnitude);
-//		rb.AddForce (transform.forward * forwardForce * Time.deltaTime, ForceMode.Impulse);
+		Debug.Log ("STANDARD MOVEMENT ACTIVE!");
 		if (!playerIsCalling) {
  			transform.position += transform.forward * forwardForce * Time.deltaTime;
-//			moveForwardInterval -= Time.deltaTime;
-//			if (moveForwardInterval <= 0f) {
-//				forwardForce = 0f;
-//			}
+ 
 	    	//create the rotation we need to be in to look at the target
          	_lookRotation = Quaternion.LookRotation(newVec);
  
@@ -91,13 +81,10 @@ public class MovementScriptV2 : MonoBehaviour {
          	transform.rotation = Quaternion.Slerp(transform.rotation, _lookRotation, Time.deltaTime * rotSpeed);
 		}
 
-//		forwardForce *= 1.01f;
-		Ray ray = new Ray (transform.position, transform.forward);
+ 		Ray ray = new Ray (transform.position, transform.forward);
 		Debug.DrawRay (ray.origin, ray.direction * raycastRange, Color.red);
 		
-		RaycastHit rayHit = new RaycastHit ();
-//		Debug.Log ("transform.eulerAngles: " + transform.eulerAngles);
-//		Debug.Log ("New Vec: " + newVec);
+		RaycastHit rayHit = new RaycastHit ();		 
 		
 		if (Physics.Raycast (ray, out rayHit, raycastRange)) {
 			if (rayHit.transform.tag == "Wall") {

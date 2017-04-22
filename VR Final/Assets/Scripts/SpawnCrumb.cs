@@ -28,6 +28,7 @@ public class SpawnCrumb : MonoBehaviour {
 			_hand.AttachObject (crumb);
 			Debug.Log ("attaching object!");
 			MoveToCrumb.instance.crumbs.Add(crumb);
+//			MoveToCrumb.instance.crumbsInScene = true;
 
 //			MoveToCrumb.instance.CrumbsAreInScene ();
 		}
