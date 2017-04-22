@@ -31,6 +31,7 @@ public class MovementScriptV2 : MonoBehaviour {
 	public bool startCountdown;
 	float rotCoolDown;
 
+	public static MovementScriptV2 instance;
 	// Use this for initialization
 	void Start () {
 //		startCountdown = false;
@@ -38,16 +39,26 @@ public class MovementScriptV2 : MonoBehaviour {
 //		The rigidbody of the Creature.
 		rb = GetComponent<Rigidbody>();
  		player = GameObject.Find("Player").GetComponent<Player>().hmdTransform;
+		if (instance == null) {
+			instance = this;
+			DontDestroyOnLoad (this);
+		} else {
+			Destroy (gameObject);
+		}
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		// player only moves on its own
-		if(!grabbed)//insert bool for crumbs here.)
+		
+		// !grabbed stops creature from moving when you grab it--because it uses Transform to move and not Rigidbody, 
+		// hand.AttachObject() does not keep it from moving.
+		// the crumbsInScene bool checks if there are any crumbs in the scene.
+
+		if(!grabbed && MoveToCrumb.instance.crumbsInScene == false)//insert bool for crumbs here.)
 		{
-//			MoveForward();
-//			GoToPlayer();
- 		}
+			MoveForward ();
+			GoToPlayer ();
+		} 
 	}
 
 	void PlayerCallOn(){
@@ -67,7 +78,7 @@ public class MovementScriptV2 : MonoBehaviour {
 		float moveForwardInterval;
 //		Debug.Log (rb.velocity.magnitude);
 //		rb.AddForce (transform.forward * forwardForce * Time.deltaTime, ForceMode.Impulse);
-		if (!playerIsCalling || playerIsCalling) {
+		if (!playerIsCalling) {
  			transform.position += transform.forward * forwardForce * Time.deltaTime;
 //			moveForwardInterval -= Time.deltaTime;
 //			if (moveForwardInterval <= 0f) {
@@ -105,7 +116,7 @@ public class MovementScriptV2 : MonoBehaviour {
 		if (playerIsCalling) {
 			//make the creature look at the player
 			_lookRotation = Quaternion.LookRotation (playerDir);
-			newVec = playerDir;
+//			newVec = playerDir;
 			//rotate us over time according to speed until we are in the required rotation
 			transform.rotation = Quaternion.Slerp (transform.rotation, _lookRotation, Time.deltaTime * rotSpeed);
 			if ((transform.rotation.eulerAngles.y - _lookRotation.eulerAngles.y) < 10f){

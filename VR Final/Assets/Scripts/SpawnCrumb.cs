@@ -23,7 +23,7 @@ public class SpawnCrumb : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		if (_hand.GetStandardInteractionButtonDown() == true) {
+		if (Input.GetKey(KeyCode.LeftShift) && _hand.GetStandardInteractionButtonDown() == true) {
 			GameObject crumb = Instantiate (Resources.Load ("Prefabs/Crumb") as GameObject);
 			_hand.AttachObject (crumb);
 			Debug.Log ("attaching object!");

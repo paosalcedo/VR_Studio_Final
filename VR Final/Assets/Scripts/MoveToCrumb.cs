@@ -26,11 +26,20 @@ public class MoveToCrumb : MonoBehaviour {
 		else {
 			Destroy (gameObject);
 		}
+ 
 	}
 	
 	// Update is called once per frame
 	void Update () {
- 		FindCrumb ();
+		if (!MovementScriptV2.instance.grabbed) {
+			FindCrumb ();
+		}
+		Debug.Log (crumbs.Count);
+		if (crumbs.Count > 1) {
+			crumbsInScene = true;
+		} else if (crumbs.Count <= 1) {
+			crumbsInScene = false;		
+		}
  	}
 
 	void FindCrumb ()
