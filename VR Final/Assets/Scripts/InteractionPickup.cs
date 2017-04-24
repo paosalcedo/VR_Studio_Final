@@ -44,8 +44,8 @@ public class InteractionPickup : MonoBehaviour {
 		if (hand.GetStandardInteractionButton () == true) { // on Vive controller, this is trigger
 
 			hand.AttachObject (gameObject);
-			gameObject.transform.localEulerAngles = new Vector3 (gameObject.transform.localEulerAngles.x + 90f, 
-				gameObject.transform.localEulerAngles.y, 
+			gameObject.transform.localEulerAngles = new Vector3 (gameObject.transform.localEulerAngles.x, 
+				gameObject.transform.localEulerAngles.y + 90f, 
 				gameObject.transform.localEulerAngles.z); 
 //			GameObject.Find("Creature").SendMessage("GrabCreature"); 
 			if (gameObject.tag == "Creature") {
