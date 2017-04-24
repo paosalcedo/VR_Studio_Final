@@ -6,7 +6,7 @@ using Valve.VR.InteractionSystem;
 
 public class GestureToCreature : MonoBehaviour {
 	 		
-	Vector3 handVelo;
+	private Vector3 handVelo;
 	public float gestureMinVelo;
 	// Use this for initialization
 	void Start () {

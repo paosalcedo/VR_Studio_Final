@@ -26,7 +26,7 @@ public class MovementScriptV2 : MonoBehaviour {
 	public bool playerIsCalling;
 	public bool grabbed;
 
-	public static MovementScriptV2 instance;
+//	public static MovementScriptV2 instance;
 	// Use this for initialization
 	void Start () {
 //		startCountdown = false;
@@ -34,12 +34,12 @@ public class MovementScriptV2 : MonoBehaviour {
 //		The rigidbody of the Creature.
 		rb = GetComponent<Rigidbody>();
  		player = GameObject.Find("Player").GetComponent<Player>().hmdTransform;
-		if (instance == null) {
-			instance = this;
-			DontDestroyOnLoad (this);
-		} else {
-			Destroy (gameObject);
-		}
+//		if (instance == null) {
+//			instance = this;
+//			DontDestroyOnLoad (this);
+//		} else {
+//			Destroy (gameObject);
+//		}
 	}
 	
 	// Update is called once per frame
