@@ -11,9 +11,8 @@ public class MovementScriptV2 : MonoBehaviour {
 	Transform player;
 	Vector3 newDir;
 	Vector3 newVec;
-//	public float avoidForce = 2f;
+ //	public float avoidForce = 2f;
 	public float forwardForce = 50f;
-	public float redirectForce = 100f;
 //	public float stableForce = 50f;
 	public float rotSpeed = 10f;
 //	public float rotCooldownValue;
@@ -25,6 +24,7 @@ public class MovementScriptV2 : MonoBehaviour {
 
 	public bool playerIsCalling;
 	public bool grabbed;
+	public bool canHover;
 
 //	public static MovementScriptV2 instance;
 	// Use this for initialization
@@ -43,17 +43,24 @@ public class MovementScriptV2 : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	void Update ()
+	{
 		
 		// !grabbed stops creature from moving when you grab it--because it uses Transform to move and not Rigidbody, 
 		// hand.AttachObject() does not keep it from moving.
 		// the crumbsInScene bool checks if there are any crumbs in the scene.
 
-		if(!grabbed && MoveToCrumb.instance.crumbsInScene == false)//insert bool for crumbs here.)
-		{
+		//THIS IS FOR STANDARD MOVEMENT
+		if (!grabbed && MoveToCrumb.instance.crumbsInScene == false && !canHover) {//insert bool for crumbs here.)
 			MoveForward ();
 			GoToPlayer ();
-		} 
+		}
+
+		if (canHover) {
+			Hover();
+		}
+		
+
 	}
 
 	void PlayerCallOn(){
@@ -111,5 +118,10 @@ public class MovementScriptV2 : MonoBehaviour {
 			}
 		}
 	}
+
+	void Hover(){
+		transform.position += transform.up * 0.25f * Time.deltaTime;		
+	}
+	
 
 }
