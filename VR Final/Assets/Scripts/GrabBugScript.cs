@@ -61,6 +61,7 @@ public class GrabBugScript : MonoBehaviour {
 				gameObject.GetComponent<MovementScriptV2>().grabbed = true;
 				wing.SetBool ("isGrabbed", true);
 				Invoke ("ActivateEventController", 0.2f);
+				IgnoreHovering ();
 				gameObject.SendMessage("PlayerCallOff");
 			}
 	

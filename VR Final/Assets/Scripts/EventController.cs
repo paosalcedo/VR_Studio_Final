@@ -15,6 +15,9 @@ public class EventController : MonoBehaviour {
 	public Material treeMat;
 	public Material skybox;
 
+	LinearMapping lm;
+	CircularDrive cd;
+
 
 	public float lightMax, lightMin;
 
@@ -66,6 +69,13 @@ public class EventController : MonoBehaviour {
 	[SerializeField] GameObject creature;
 
 	void Start(){
+
+		cd = GetComponent<CircularDrive> ();
+
+		lm = cd.GetComponent<LinearMapping> ();
+
+
+
 		yRotation = transform.rotation.y;
 
 		GameObject water = GameObject.Find ("WaterGround");
@@ -81,6 +91,8 @@ public class EventController : MonoBehaviour {
 	void Update () {
 
 		if (SteamVR.active == false) {
+
+
 
 			
 			ChangeSkyColor (colorSky1, colorSky2);
@@ -115,7 +127,9 @@ public class EventController : MonoBehaviour {
 
 		AngleDifference = transform.rotation.y - yRotation;
 
-		print (AngleDifference);
+//		print (AngleDifference);
+
+		print("Linearmapping: " + lm.value);
 
 
 	}
@@ -123,7 +137,7 @@ public class EventController : MonoBehaviour {
 
 
 	public void ChangeSkyColor (Color c1, Color c2){
-		float colorChange = UtilScript.remapRange (angleDifference, -1, 1,0,1 );
+		float colorChange = UtilScript.remapRange (lm.value, 0, 1,0,1 );
 		Color lerpedColor = Color.LerpUnclamped(c1, c2, colorChange);
 
 		RenderSettings.skybox.SetColor ("_SkyTint", lerpedColor); 
@@ -131,17 +145,17 @@ public class EventController : MonoBehaviour {
 
 	public void ChangeLightIntensity(float min, float max){
 
-		float value = UtilScript.remapRange (angleDifference, -1, 1,min,max );
+		float value = UtilScript.remapRange (lm.value, 0, 1,min,max );
 		light.intensity = value;
 	}
 
 	public void ChangeAtmosphere(float min, float max){
-		float exposure = UtilScript.remapRange (transform.rotation.y, -1, 1,min,max );
+		float exposure = UtilScript.remapRange (lm.value, 0, 1,min,max );
 		RenderSettings.skybox.SetFloat ("_AtmosphereThickness", exposure);
 	}
 
 	public void EmitBubbles(float min, float max){
-		float rate = UtilScript.remapRange (angleDifference, -1, 1, min, max);
+		float rate = UtilScript.remapRange (lm.value, 0, 1, min, max);
 		var emission = bubbles.emission;
 		emission.rateOverTime = rate;	
 	}
@@ -157,13 +171,13 @@ public class EventController : MonoBehaviour {
 //	}
 
 	public void ChangeWaterFresnel(float min, float max){
-		float fresnel = UtilScript.remapRange (angleDifference, -1, 1, min, max);
+		float fresnel = UtilScript.remapRange (lm.value, 0, 1, min, max);
 		rend.material.SetFloat ("_FresnelScale", fresnel);
 
 	}
 
 	public void ChangeTrailColor(Color c1, Color c2, Color c3, Color c4){
-		float colorChange = UtilScript.remapRange (angleDifference, -1, 1,0,1 );
+		float colorChange = UtilScript.remapRange (lm.value, 0, 1,0,1 );
 		Color lerpedColor1 = Color.LerpUnclamped (c1, c2, colorChange);
 		Color lerpedColor2 = Color.LerpUnclamped (c3, c4, colorChange);
 
@@ -181,7 +195,7 @@ public class EventController : MonoBehaviour {
 	}
 
 	public void ChangeWaterColor (Color c1, Color c2){
-		float colorChange = UtilScript.remapRange (angleDifference, -1, 1,0,1 );
+		float colorChange = UtilScript.remapRange (lm.value, 0, 1,0,1 );
 		Color lerpedColor = Color.LerpUnclamped(c1, c2, colorChange);
 
 		rend.material.SetColor ("_ReflectionColor", lerpedColor);
@@ -203,7 +217,7 @@ public class EventController : MonoBehaviour {
 	}
 
 	public void ChangeTreeMaterial(Color c1, Color c2){
-		float colorChange = UtilScript.remapRange (angleDifference, -1, 1,0,1 );
+		float colorChange = UtilScript.remapRange (lm.value, 0, 1,0,1 );
 		Color lerpedColor = Color.LerpUnclamped(c1, c2, colorChange);
 
 		treeMat.SetColor("_TintColor", lerpedColor);
@@ -212,7 +226,7 @@ public class EventController : MonoBehaviour {
 	}
 
 	public void ChangeGroundColor (Color c1, Color c2){
-		float colorChange = UtilScript.remapRange (angleDifference, -1, 1,0,1 );
+		float colorChange = UtilScript.remapRange (lm.value, 0, 1,0,1 );
 		Color lerpedColor = Color.LerpUnclamped(c1, c2, colorChange);
 
 		skybox.SetColor (" _GroundColor", lerpedColor); 
