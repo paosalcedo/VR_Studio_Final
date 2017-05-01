@@ -47,7 +47,7 @@ public class MovementScriptV2 : MonoBehaviour {
 		// the crumbsInScene bool checks if there are any crumbs in the scene.
 
 		//THIS IS FOR STANDARD MOVEMENT
-		if (!grabbed && MoveToCrumb.crumbsInScene == false && !canHover) {//insert bool for crumbs here.)
+		if (!grabbed && !MoveToCrumb.crumbsInScene) {//insert bool for crumbs here.)
 			MoveForward ();
 			GoToPlayer ();
 		}
@@ -55,13 +55,13 @@ public class MovementScriptV2 : MonoBehaviour {
 
 	void PlayerCallOn(){
 		playerIsCalling = true;
-		Debug.Log("player is calling is true");
+//		Debug.Log("player is calling is true");
 	}
 
 	void PlayerCallOff ()
 	{
 		playerIsCalling = false;
-		Debug.Log("player is calling is false");
+//		Debug.Log("player is calling is false");
 	}
 
 	

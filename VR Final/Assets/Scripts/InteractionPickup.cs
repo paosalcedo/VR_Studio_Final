@@ -47,12 +47,12 @@ public class InteractionPickup : MonoBehaviour {
 			gameObject.transform.localEulerAngles = new Vector3 (gameObject.transform.localEulerAngles.x, 
 				gameObject.transform.localEulerAngles.y + 90f, 
 				gameObject.transform.localEulerAngles.z); 
-//			GameObject.Find("Creature").SendMessage("GrabCreature"); 
-			if (gameObject.tag == "Creature") {
+ 			if (gameObject.tag == "Creature") {
 				gameObject.GetComponent<MovementScriptV2>().grabbed = true;
 			}
-//			GameObject.Find("Creature").SendMessage("GoToPlayer");
-		}
+
+			gameObject.SendMessage("PlayerCallOff");
+  		}
 
   	}
 
@@ -97,7 +97,6 @@ public class InteractionPickup : MonoBehaviour {
 		GetComponent<Rigidbody>().AddForce( SteamVR.active ? hand.GetTrackedObjectVelocity() : fallbackVelocity, ForceMode.Impulse );
 
 		GetComponent<Rigidbody>().AddTorque( SteamVR.active ? hand.GetTrackedObjectAngularVelocity() * 10f : fallbackTorque.eulerAngles, ForceMode.Impulse );
-
 	}
 
 
