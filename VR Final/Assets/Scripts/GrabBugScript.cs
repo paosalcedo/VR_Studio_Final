@@ -62,7 +62,7 @@ public class GrabBugScript : MonoBehaviour {
 				wing.SetBool ("isGrabbed", true);
 				Invoke ("ActivateEventController", 0.2f);
 			}
-
+			gameObject.SendMessage("PlayerCallOff");
 		}
 
 	}
