@@ -7,7 +7,8 @@ using Valve.VR.InteractionSystem;
 public class GestureToCreature : MonoBehaviour {
 	 		
 	private Vector3 handVelo;
-	public float gestureMinVelo;
+	[SerializeField]float gestureMinVelo;
+
 	// Use this for initialization
 	void Start () {
 //		gestureMinVelo = 5f;
@@ -22,12 +23,25 @@ public class GestureToCreature : MonoBehaviour {
 		CheckHandVelo ();
 	}
 
+	bool isWaving;
+	float waveCoolDown;
+	float waveTime;
 	void CheckHandVelo ()
 	{
- 		Debug.Log("hand velocity is " + handVelo.magnitude);
+
+		Debug.Log ("hand velocity is " + handVelo.magnitude);
 
 		if (handVelo.magnitude > gestureMinVelo) {
-			GameObject.Find("BugPrefab").SendMessage("PlayerCallOn");
+			waveTime += Time.deltaTime;
+			if (waveTime > 3f) {
+				GameObject.Find ("BugPrefab").SendMessage ("PlayerCallOn");
+			}
+		} else if(MovementScriptV2.isNearPlayer){
+			GameObject.Find ("BugPrefab").SendMessage ("PlayerCallOff");
+		}
+			else {
+			waveTime = 0;
+			
 		} 
 	}
 	

@@ -61,8 +61,9 @@ public class GrabBugScript : MonoBehaviour {
 				gameObject.GetComponent<MovementScriptV2>().grabbed = true;
 				wing.SetBool ("isGrabbed", true);
 				Invoke ("ActivateEventController", 0.2f);
+				gameObject.SendMessage("PlayerCallOff");
 			}
-			gameObject.SendMessage("PlayerCallOff");
+	
 		}
 
 	}
@@ -91,6 +92,7 @@ public class GrabBugScript : MonoBehaviour {
 				wing.SetBool ("isGrabbed", false);
 				sceneControl.enabled = false;
 			}
+		
 		}
 
 	}
@@ -102,8 +104,6 @@ public class GrabBugScript : MonoBehaviour {
 	void OnDetachedFromHand( Hand hand ) {
 
 		GetComponent<Rigidbody>().isKinematic = false; // turns on physics
-
-
 
 		// apply forces to it, as if we're throwing it
 

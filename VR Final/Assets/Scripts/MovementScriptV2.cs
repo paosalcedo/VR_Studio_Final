@@ -16,8 +16,8 @@ public class MovementScriptV2 : MonoBehaviour {
 //	public float stableForce = 50f;
 	public float rotSpeed = 10f;
 //	public float rotCooldownValue;
-	public float hoverVertSpeed;
-	public float hoverHoriSpeed;
+//	public float hoverVertSpeed;
+//	public float hoverHoriSpeed;
 	public float amplitude;
 	
 	private Vector3 tempPos;
@@ -55,13 +55,13 @@ public class MovementScriptV2 : MonoBehaviour {
 
 	void PlayerCallOn(){
 		playerIsCalling = true;
-//		Debug.Log("player is calling is true");
+		Debug.Log("player is calling is true");
 	}
 
 	void PlayerCallOff ()
 	{
 		playerIsCalling = false;
-//		Debug.Log("player is calling is false");
+		Debug.Log("player is calling is false");
 	}
 
 	
@@ -90,23 +90,37 @@ public class MovementScriptV2 : MonoBehaviour {
 		}     
 	}
 
+	public static bool isNearPlayer;
+
 	void GoToPlayer ()
 	{
-//		float dist;
-//		dist = Vector3.Distance (player.position, transform.position);
+		float dist;
+		dist = Vector3.Distance (player.position, transform.position);
 		Vector3 playerDir = player.position - transform.position;
 //		Debug.Log(transform.rotation.eulerAngles.y - _lookRotation.eulerAngles.y);
 
 		if (playerIsCalling) {
+			//ROTATE NECK animation state here.
 			//make the creature look at the player
 			_lookRotation = Quaternion.LookRotation (playerDir);
 //			newVec = playerDir;
 			//rotate us over time according to speed until we are in the required rotation
 			transform.rotation = Quaternion.Slerp (transform.rotation, _lookRotation, Time.deltaTime * rotSpeed);
-			if ((transform.rotation.eulerAngles.y - _lookRotation.eulerAngles.y) < 10f){
+			if ((transform.rotation.eulerAngles.y - _lookRotation.eulerAngles.y) < 10f) {
 				transform.position += playerDir * 1f * Time.deltaTime;	
 			}
 		}
+		
+		if (dist <= 0.5f) {
+			isNearPlayer = true;
+		} else {
+			isNearPlayer = false;
+		}
 	}
+
+	
+
+
+	
  
 }
