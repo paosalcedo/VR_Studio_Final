@@ -16,6 +16,13 @@ public class MovementScriptV2 : MonoBehaviour {
 //	public float stableForce = 50f;
 	public float rotSpeed = 10f;
 //	public float rotCooldownValue;
+	public float hoverVertSpeed;
+	public float hoverHoriSpeed;
+	public float amplitude;
+	
+	private Vector3 tempPos;
+
+
 	Rigidbody rb;
 	[SerializeField]float raycastRange = 5f;
 
@@ -40,6 +47,7 @@ public class MovementScriptV2 : MonoBehaviour {
 //		} else {
 //			Destroy (gameObject);
 //		}
+		tempPos = transform.position;
 	}
 	
 	// Update is called once per frame
@@ -120,7 +128,9 @@ public class MovementScriptV2 : MonoBehaviour {
 	}
 
 	void Hover(){
-		transform.position += transform.up * 0.25f * Time.deltaTime;		
+		tempPos.x += hoverHoriSpeed;
+		tempPos.y = Mathf.Sin(Time.realtimeSinceStartup * hoverVertSpeed) * amplitude;
+		transform.position = tempPos; 
 	}
 	
 
