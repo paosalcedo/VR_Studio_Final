@@ -15,7 +15,6 @@ public class EventController : MonoBehaviour {
 	public Material treeMat;
 	public Material skybox;
 
-//	public Transform marker;
 
 	public float lightMax, lightMin;
 
@@ -43,7 +42,7 @@ public class EventController : MonoBehaviour {
 //	float angleDifference;
 	float yRotation;
 
-	public Camera camera; // Remove before building
+	public Camera camera; // Change to VRCamera in inspector before building 
 
 	private float angleDifference;
 
@@ -79,38 +78,40 @@ public class EventController : MonoBehaviour {
 		AngleDifference = 0;
 	}
 
-	void Update(){
-//
-//		ChangeSkyColor (colorSky1, colorSky2);
-//		ChangeLightIntensity (lightMin, lightMax);
-//		ChangeAtmosphere (atmoMin, atmoMax);
-////		EmitBubbles (emitMin, emitMax);
-//
-//		ChangeWaterFresnel (fresMin, fresMax);
-//		ChangeTrailColor (colorTrail1, colorTrail2, colorTrail3, colorTrail4);
-//		ChangeWaterColor (waterColor1, waterColor2);
-//
-//		ChangeTreeMaterial (treeColor1, treeColor2);
-//		ChangeGroundColor (groundColor1, groundColor2);
+	void Update () {
 
+		if (SteamVR.active == false) {
 
-		// Use the Below Code Only when Building for VR
-
-		if (creature.GetComponent<MovementScriptV2> ().grabbed) {
+			
 			ChangeSkyColor (colorSky1, colorSky2);
 			ChangeLightIntensity (lightMin, lightMax);
 			ChangeAtmosphere (atmoMin, atmoMax);
 			//		EmitBubbles (emitMin, emitMax);
-
+			
 			ChangeWaterFresnel (fresMin, fresMax);
 			ChangeTrailColor (colorTrail1, colorTrail2, colorTrail3, colorTrail4);
 			ChangeWaterColor (waterColor1, waterColor2);
-
+			
 			ChangeTreeMaterial (treeColor1, treeColor2);
 			ChangeGroundColor (groundColor1, groundColor2);
 
-		}
+		} else {
 
+			if (creature.GetComponent<MovementScriptV2> ().grabbed) {
+				ChangeSkyColor (colorSky1, colorSky2);
+				ChangeLightIntensity (lightMin, lightMax);
+				ChangeAtmosphere (atmoMin, atmoMax);
+				//		EmitBubbles (emitMin, emitMax);
+
+				ChangeWaterFresnel (fresMin, fresMax);
+				ChangeTrailColor (colorTrail1, colorTrail2, colorTrail3, colorTrail4);
+				ChangeWaterColor (waterColor1, waterColor2);
+
+				ChangeTreeMaterial (treeColor1, treeColor2);
+				ChangeGroundColor (groundColor1, groundColor2);
+
+			}
+		}
 
 		AngleDifference = transform.rotation.y - yRotation;
 
@@ -118,7 +119,8 @@ public class EventController : MonoBehaviour {
 
 
 	}
-		
+
+
 
 	public void ChangeSkyColor (Color c1, Color c2){
 		float colorChange = UtilScript.remapRange (angleDifference, -1, 1,0,1 );

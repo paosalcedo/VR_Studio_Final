@@ -12,7 +12,8 @@ public class GrabBugScript : MonoBehaviour {
 	public Animator wing;
 
 	EventController sceneControl;
-	// do this stuff for fallback mouse 2D support
+
+
 
 	void Start(){
 
@@ -123,34 +124,3 @@ public class GrabBugScript : MonoBehaviour {
 }
 
 
-//{
-//	//when hand is hovering near an object or over it
-//	void HandHoverUpdate(Hand hand){ 
-//		//this applies to either Vive controller
-//		if(hand.GetStandardInteractionButton() ){ //On Vive controller, this is trigger
-//			hand.AttachObject(gameObject);
-//		}
-//	}
-//
-//	//this is like update as long as we're holding something
-//	void HandAttachedUpdate(Hand hand){
-//		if(!hand.GetStandardInteractionButton() ){ //On Vive controller, this is trigger
-//			hand.DetachObject(gameObject); // detaches gameobject from hand
-//		}
-//	}
-//
-//	//this happens whenever an object is attached to hand
-//	void OnAttachedToHand(Hand hand){ 
-//		GetComponent<Rigidbody> ().isKinematic = true;//turn off physics so we can hold it
-//	}
-//
-//	//this happens when the object is detached from a hand, for whatever reason
-//	void OnDetachedFromHand(Hand hand){
-//		GetComponent<Rigidbody> ().isKinematic = false; //turns on physics
-//		//apply forces to it, as if we're throwing it
-//		GetComponent<Rigidbody>().AddForce(hand.GetTrackedObjectVelocity(), ForceMode.Impulse);
-//		GetComponent<Rigidbody> ().AddTorque (hand.GetTrackedObjectAngularVelocity (), ForceMode.Impulse);
-//	}
-//
-//
-//}
