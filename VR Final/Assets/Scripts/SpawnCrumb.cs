@@ -36,13 +36,13 @@ public class SpawnCrumb : MonoBehaviour {
 
 		//Get angle between hand and player's look direction.
 		float angle = Vector3.Angle(playerLookDir, vecFromHandToPlayer);
-		
+	
 		if (_hand.GetStandardInteractionButtonDown() == true && angle >= angleMin && angle <= angleMax) {
 		
 			GameObject crumb = Instantiate (Resources.Load ("Prefabs/Crumb") as GameObject);
 			_hand.AttachObject (crumb);
 			Debug.Log ("attaching object!");
-			MoveToCrumb.instance.crumbs.Add(crumb);
+			MoveToCrumb.crumbs.Add(crumb);
 //			MoveToCrumb.instance.crumbsInScene = true;
 
 //			MoveToCrumb.instance.CrumbsAreInScene ();

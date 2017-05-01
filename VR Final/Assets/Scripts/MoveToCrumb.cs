@@ -5,12 +5,12 @@ using Valve.VR.InteractionSystem;
 
 public class MoveToCrumb : MonoBehaviour {
 
-	public List<GameObject> crumbs = new List<GameObject> ();
+	public static List<GameObject> crumbs = new List<GameObject> ();
 	Quaternion _lookRotation;
 	float rotSpeed = 1f;
 	float forwardSpeed = 1f;
 
-	public bool crumbsInScene;
+	public static bool crumbsInScene;
 
 	// Use this for initialization
 	Transform player;
@@ -19,14 +19,6 @@ public class MoveToCrumb : MonoBehaviour {
 
 	void Start () {
  		player = GameObject.Find("Player").GetComponent<Player>().hmdTransform;
-		if (instance == null) {
-			instance = this;
-			DontDestroyOnLoad (this);
-		}
-		else {
-			Destroy (gameObject);
-		}
- 
 	}
 	
 	// Update is called once per frame

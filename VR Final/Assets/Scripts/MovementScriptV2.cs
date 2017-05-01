@@ -22,7 +22,6 @@ public class MovementScriptV2 : MonoBehaviour {
 	
 	private Vector3 tempPos;
 
-
 	Rigidbody rb;
 	[SerializeField]float raycastRange = 5f;
 
@@ -33,20 +32,9 @@ public class MovementScriptV2 : MonoBehaviour {
 	public bool grabbed;
 	public bool canHover;
 
-//	public static MovementScriptV2 instance;
-	// Use this for initialization
 	void Start () {
-//		startCountdown = false;
-//		rotCoolDown = rotCooldownValue;
-//		The rigidbody of the Creature.
 		rb = GetComponent<Rigidbody>();
  		player = GameObject.Find("Player").GetComponent<Player>().hmdTransform;
-//		if (instance == null) {
-//			instance = this;
-//			DontDestroyOnLoad (this);
-//		} else {
-//			Destroy (gameObject);
-//		}
 		tempPos = transform.position;
 	}
 	
@@ -59,16 +47,10 @@ public class MovementScriptV2 : MonoBehaviour {
 		// the crumbsInScene bool checks if there are any crumbs in the scene.
 
 		//THIS IS FOR STANDARD MOVEMENT
-		if (!grabbed && MoveToCrumb.instance.crumbsInScene == false && !canHover) {//insert bool for crumbs here.)
+		if (!grabbed && MoveToCrumb.crumbsInScene == false && !canHover) {//insert bool for crumbs here.)
 			MoveForward ();
 			GoToPlayer ();
 		}
-
-		if (canHover) {
-			Hover();
-		}
-		
-
 	}
 
 	void PlayerCallOn(){
@@ -126,12 +108,5 @@ public class MovementScriptV2 : MonoBehaviour {
 			}
 		}
 	}
-
-	void Hover(){
-		tempPos.x += hoverHoriSpeed;
-		tempPos.y = Mathf.Sin(Time.realtimeSinceStartup * hoverVertSpeed) * amplitude;
-		transform.position = tempPos; 
-	}
-	
-
+ 
 }
