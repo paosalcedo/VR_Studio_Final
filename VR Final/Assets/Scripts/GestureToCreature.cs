@@ -36,10 +36,10 @@ public class GestureToCreature : MonoBehaviour {
 // 		Debug.Log("hand velocity is " + handVelo.magnitude);
 
 		if (handVelo.magnitude > gestureMinVelo) {
-			GameObject.Find("Creature").SendMessage("PlayerCallOn");
+			GameObject.Find("Bug").SendMessage("PlayerCallOn");
 		} 
 		else if (handVelo.magnitude < gestureMinVelo) {
-			GameObject.Find("Creature").SendMessage("PlayerCallOff");
+			GameObject.Find("Bug").SendMessage("PlayerCallOff");
 		}
 	}
 	

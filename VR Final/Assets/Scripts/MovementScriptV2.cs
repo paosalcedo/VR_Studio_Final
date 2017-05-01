@@ -102,7 +102,7 @@ public class MovementScriptV2 : MonoBehaviour {
 		RaycastHit rayHit = new RaycastHit ();		 
 		
 		if (Physics.Raycast (ray, out rayHit, raycastRange)) {
-			if (rayHit.transform.tag == "Wall") {
+			if (rayHit.transform.tag == "Wall" || rayHit.transform.tag == "Ground") {
 				newVec = rayHit.normal + Random.insideUnitSphere;				
 			} 
 		}     
