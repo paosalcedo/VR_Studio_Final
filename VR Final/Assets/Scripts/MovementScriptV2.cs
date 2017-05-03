@@ -19,6 +19,8 @@ public class MovementScriptV2 : MonoBehaviour {
 //	public float hoverVertSpeed;
 //	public float hoverHoriSpeed;
 	public float amplitude;
+	public float moveToPlayerSpeed = 1f;
+	float dist;
 	
 	private Vector3 tempPos;
 
@@ -94,12 +96,13 @@ public class MovementScriptV2 : MonoBehaviour {
 
 	void GoToPlayer ()
 	{
-		float dist;
-		dist = Vector3.Distance (player.position, transform.position);
-		Vector3 playerDir = player.position - transform.position;
+//		Vector3 playerDir = player.position - transform.position;
+		
 //		Debug.Log(transform.rotation.eulerAngles.y - _lookRotation.eulerAngles.y);
-
+ 
 		if (playerIsCalling) {
+			dist = Vector3.Distance (player.position, transform.position);
+			Vector3 playerDir = (player.forward + (player.up * 1.5f)) - transform.position;
 			//ROTATE NECK animation state here.
 			//make the creature look at the player
 			_lookRotation = Quaternion.LookRotation (playerDir);
@@ -107,7 +110,7 @@ public class MovementScriptV2 : MonoBehaviour {
 			//rotate us over time according to speed until we are in the required rotation
 			transform.rotation = Quaternion.Slerp (transform.rotation, _lookRotation, Time.deltaTime * rotSpeed);
 			if ((transform.rotation.eulerAngles.y - _lookRotation.eulerAngles.y) < 10f) {
-				transform.position += playerDir * 1f * Time.deltaTime;	
+				transform.position += playerDir * moveToPlayerSpeed * Time.deltaTime;	
 			}
 		}
 		

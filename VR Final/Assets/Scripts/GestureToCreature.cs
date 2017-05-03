@@ -36,12 +36,12 @@ public class GestureToCreature : MonoBehaviour {
 			if (waveTime > 1f) {
 				GameObject.Find ("BugPrefab").SendMessage ("PlayerCallOn");
 			}
-		} else if(MovementScriptV2.isNearPlayer){
-			GameObject.Find ("BugPrefab").SendMessage ("PlayerCallOff");
-		}
+		} 
+//		else if(MovementScriptV2.isNearPlayer){
+//			GameObject.Find ("BugPrefab").SendMessage ("PlayerCallOff");
+//		}
 			else {
 			waveTime = 0;
-			
 		} 
 	}
 	
