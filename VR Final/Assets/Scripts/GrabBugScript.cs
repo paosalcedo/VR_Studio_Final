@@ -19,6 +19,7 @@ public class GrabBugScript : MonoBehaviour {
 
 		GameObject wing = GameObject.Find ("BugController");
 		sceneControl = wing.GetComponent<EventController> ();
+
 	}
 
 	void FixedUpdate () {
@@ -59,9 +60,9 @@ public class GrabBugScript : MonoBehaviour {
 
 			if (gameObject.tag == "Creature") {
 				gameObject.GetComponent<MovementScriptV2>().grabbed = true;
-				wing.SetBool ("isGrabbed", true);
-				Invoke ("ActivateEventController", 0.2f);
-				IgnoreHovering ();
+				wing.enabled = false;
+//				Invoke ("ActivateEventController", 0.2f);
+
 				gameObject.SendMessage("PlayerCallOff");
 			}
 	
@@ -90,8 +91,9 @@ public class GrabBugScript : MonoBehaviour {
 			//			GameObject.Find("Creature").SendMessage("ReleaseCreature");
 			if (gameObject.tag == "Creature") {
 				gameObject.GetComponent<MovementScriptV2>().grabbed = false;
-				wing.SetBool ("isGrabbed", false);
-				sceneControl.enabled = false;
+				wing.enabled = true;
+//				sceneControl.enabled = false;
+
 			}
 		
 		}
