@@ -33,7 +33,7 @@ public class GestureToCreature : MonoBehaviour {
 
 		if (handVelo.magnitude > gestureMinVelo) {
 			waveTime += Time.deltaTime;
-			if (waveTime > 2.5f) {
+			if (waveTime > 1f) {
 				GameObject.Find ("BugPrefab").SendMessage ("PlayerCallOn");
 			}
 		} else if(MovementScriptV2.isNearPlayer){
