@@ -24,14 +24,10 @@ public class MoveToCrumb : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
 	{
-//		ghostcrumbs = new GameObject[crumbs.Count];
-//		Debug.Log ("Ghost crumbs: " + ghostcrumbs.Length);
 		if (GetComponent<MovementScriptV2>().grabbed == false && crumbsInScene == true) {
 			FindCrumb ();
 		}
-		
-		Debug.Log (crumbs.Count);
-		
+				
 		if (crumbs.Count > 0) {
 			crumbsInScene = true;
 		} else {

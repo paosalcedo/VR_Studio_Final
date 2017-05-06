@@ -7,7 +7,7 @@ public class MovementScriptV2 : MonoBehaviour {
 	
 //	GameObject player;
 //	public float avoidDist;
-
+ 
 	Transform player;
 	Vector3 newDir;
 	Vector3 newVec;
@@ -35,7 +35,7 @@ public class MovementScriptV2 : MonoBehaviour {
 	public bool canHover;
 
 	void Start () {
-		rb = GetComponent<Rigidbody>();
+ 		rb = GetComponent<Rigidbody>();
  		player = GameObject.Find("Player").GetComponent<Player>().hmdTransform;
 		tempPos = transform.position;
 	}
@@ -53,6 +53,14 @@ public class MovementScriptV2 : MonoBehaviour {
 			MoveForward ();
 			GoToPlayer ();
 		}
+		
+		Debug.Log("Mic volume: " + SpectrumController.desiredScale);
+		if (SpectrumController.desiredScale > 1.001f) {
+			playerIsCalling = true;
+			Debug.Log("Bug hears you!");
+			
+		} 
+//		
 	}
 
 	void PlayerCallOn(){

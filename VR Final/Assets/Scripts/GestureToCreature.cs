@@ -30,7 +30,7 @@ public class GestureToCreature : MonoBehaviour {
 	void CheckHandVelo ()
 	{
 
-		Debug.Log ("hand velocity is " + handVelo.magnitude);
+//		Debug.Log ("hand velocity is " + handVelo.magnitude);
 
 		if (handVelo.magnitude > gestureMinVelo) {
 			waveTime += Time.deltaTime;
