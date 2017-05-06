@@ -123,7 +123,7 @@ namespace Valve.VR.InteractionSystem
 
 
 		//-------------------------------------------------
-		void Start()
+		void Awake()
 		{
 			if ( childCollider == null )
 			{

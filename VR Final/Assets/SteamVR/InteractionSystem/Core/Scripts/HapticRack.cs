@@ -33,7 +33,7 @@ namespace Valve.VR.InteractionSystem
 		private int previousToothIndex = -1;
 
 		//-------------------------------------------------
-		void Awake()
+		void Start()
 		{
 			if ( linearMapping == null )
 			{

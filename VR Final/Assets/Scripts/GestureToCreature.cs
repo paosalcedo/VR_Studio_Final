@@ -5,6 +5,8 @@ using Valve.VR.InteractionSystem;
 
 
 public class GestureToCreature : MonoBehaviour {
+
+	public float waveTime;
 	 		
 	private Vector3 handVelo;
 	[SerializeField]float gestureMinVelo;
@@ -25,7 +27,6 @@ public class GestureToCreature : MonoBehaviour {
 
 	bool isWaving;
 	float waveCoolDown;
-	float waveTime;
 	void CheckHandVelo ()
 	{
 
