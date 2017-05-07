@@ -60,6 +60,8 @@ public class MovementScriptV2 : MonoBehaviour {
 		}
 
 		//FOR MIC INPUT
+		Debug.Log("mic volume is: " + SpectrumController.desiredScale);
+
 		if (SpectrumController.desiredScale > minCallVolume && listenForCall) {
 			callTime += Time.deltaTime;
 			if (callTime > minCallTime) {

@@ -112,7 +112,7 @@ public class EventController : MonoBehaviour {
 			//		EmitBubbles (emitMin, emitMax);
 			
 			ChangeWaterFresnel (fresMin, fresMax);
-			ChangeTrailColor (colorTrail1, colorTrail2, colorTrail3, colorTrail4);
+//			ChangeTrailColor (colorTrail1, colorTrail2, colorTrail3, colorTrail4);
 			ChangeWaterColor (waterColor1, waterColor2);
 			
 			ChangeTreeMaterial (treeColor1, treeColor2);
@@ -127,7 +127,7 @@ public class EventController : MonoBehaviour {
 				//		EmitBubbles (emitMin, emitMax);
 
 				ChangeWaterFresnel (fresMin, fresMax);
-				ChangeTrailColor (colorTrail1, colorTrail2, colorTrail3, colorTrail4);
+//				ChangeTrailColor (colorTrail1, colorTrail2, colorTrail3, colorTrail4);
 				ChangeWaterColor (waterColor1, waterColor2);
 
 				ChangeTreeMaterial (treeColor1, treeColor2);

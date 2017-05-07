@@ -7,21 +7,28 @@ public class BugInteraction : MonoBehaviour {
 
 	GameObject wing;
 	TrailRenderer tr;
+	Vector2 touch;
+
+	public Color colorTrail1, colorTrail2, colorTrail3, colorTrail4;
+
+	public float widthMin, widthMax;
 
 	EventController sceneControl;
 
-	IgnoreHovering ignore;
+	Interactable interactable;
 
 	Vector3 lastPosition, fallbackVelocity;
 	Quaternion lastRotation, fallbackTorque;
 	GameObject block;
 	public Animator wingAnim;
 
+
+
 	// Use this for initialization
 	void Start () {
 		wing = GameObject.Find ("BugController");
 		sceneControl = wing.GetComponent<EventController> ();
-		ignore = GetComponent<IgnoreHovering> ();
+		interactable = GetComponent<Interactable> ();
 
 		GameObject emitter = GameObject.Find ("Emitter");
 		tr = emitter.GetComponent<TrailRenderer> ();
@@ -53,20 +60,19 @@ public class BugInteraction : MonoBehaviour {
 
 	// this happens whenever a hand is near this object
 
-	void HandHoverUpdate (Hand hand)
-	{
-		if (hand.controller.GetPress (Valve.VR.EVRButtonId.k_EButton_SteamVR_Trigger)) {
-			
+	void HandHoverUpdate (Hand hand){
+		if (hand.otherHand.controller.GetPress (Valve.VR.EVRButtonId.k_EButton_SteamVR_Trigger)) {
+
 			hand.AttachObject (gameObject);
 			gameObject.transform.localEulerAngles = new Vector3 (gameObject.transform.localEulerAngles.x, 
-				gameObject.transform.localEulerAngles.y , 
+				gameObject.transform.localEulerAngles.y, 
 				gameObject.transform.localEulerAngles.z); 
 
 			if (gameObject.tag == "Creature") {
-				gameObject.GetComponent<MovementScriptV2>().grabbed = true;
+				gameObject.GetComponent<MovementScriptV2> ().grabbed = true;
 				wingAnim.enabled = false;
 
-				gameObject.SendMessage("PlayerCallOff");
+				gameObject.SendMessage ("PlayerCallOff");
 			}
 		}
 	}
@@ -89,19 +95,29 @@ public class BugInteraction : MonoBehaviour {
 
 	void HandAttachedUpdate( Hand hand ) {
 
-		hand.otherHand = ignore.onlyIgnoreHand;
+		touch = hand.controller.GetAxis (Valve.VR.EVRButtonId.k_EButton_SteamVR_Touchpad);
 
-		if (hand.controller.GetPress (Valve.VR.EVRButtonId.k_EButton_Grip)) {
+		if (hand.otherHand.controller.GetPress (Valve.VR.EVRButtonId.k_EButton_SteamVR_Trigger)) {
+			hand.HoverLock (interactable);
+		} else {
+			hand.HoverUnlock (interactable);
+		}
+
+		if (hand.controller.GetPress (Valve.VR.EVRButtonId.k_EButton_SteamVR_Touchpad)) {
 			tr.enabled = true;
+
+			ChangeTrailColor (touch.x, colorTrail1, colorTrail2, colorTrail3, colorTrail4);
+
 		} else {
 			tr.enabled = false;
 		}
+
+		print (Valve.VR.EVRButtonId.k_EButton_SteamVR_Touchpad);
 
 		if (hand.controller.GetPressUp (Valve.VR.EVRButtonId.k_EButton_SteamVR_Trigger)) { // on Vive controller, this is trigger
 			hand.DetachObject( gameObject );
 
 			if (gameObject.tag == "Creature") {
-				gameObject.GetComponent<MovementScriptV2>().grabbed = false;
 				wingAnim.enabled = true;
 
 
@@ -113,11 +129,15 @@ public class BugInteraction : MonoBehaviour {
 
 
 
+
+
 	// this happens when the object is detached from a hand, for whatever reason
 
 	void OnDetachedFromHand( Hand hand ) {
 
-		GetComponent<Rigidbody>().isKinematic = false; // turns on physics
+//		GetComponent<Rigidbody>().isKinematic = false; // turns on physics
+		gameObject.GetComponent<MovementScriptV2>().grabbed = false;
+		gameObject.SendMessage ("RegainControl");
 
 		tr.enabled = false;
 		tr.Clear();
@@ -134,6 +154,28 @@ public class BugInteraction : MonoBehaviour {
 
 		sceneControl.enabled = true;
 
+	}
+
+	void ChangeTrailColor(float axis, Color c1, Color c2, Color c3, Color c4){
+		float colorChange = UtilScript.remapRange (axis, 0, 1, 0, 1);
+		Color lerpedColor1 = Color.LerpUnclamped (c1, c2, colorChange);
+		Color lerpedColor2 = Color.LerpUnclamped (c3, c4, colorChange);
+
+		GameObject myGameObject = GameObject.Find ("Emitter");
+		TrailRenderer tr = myGameObject.GetComponent<TrailRenderer> ();
+		float alpha = 1.0f;
+
+		Gradient gradient = new Gradient ();
+		gradient.SetKeys (
+			new GradientColorKey[] { new GradientColorKey (lerpedColor1, 0.0f), new GradientColorKey (lerpedColor2, 1.0f) },
+			new GradientAlphaKey[] { new GradientAlphaKey (alpha, 0.0f), new GradientAlphaKey (alpha, 1.0f) }
+		);
+		tr.colorGradient = gradient; 
+	}
+
+	void ChangeTrailWidth (float axis, float min, float max){
+		float width = UtilScript.remapRange (axis, 0, 1,min,max );
+		tr.widthMultiplier = width;
 	}
 
 
