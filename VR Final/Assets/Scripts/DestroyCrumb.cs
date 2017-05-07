@@ -15,7 +15,7 @@ public class DestroyCrumb : MonoBehaviour {
 	}
 
 	void OnCollisionEnter(Collision coll){
-		if (coll.gameObject.tag == "Creature") {
+		if (coll.gameObject.tag == "Creature" || coll.gameObject.name == "WaterGround") {
 			Destroy (gameObject);
  			MoveToCrumb.crumbs.Remove (gameObject);
  		}

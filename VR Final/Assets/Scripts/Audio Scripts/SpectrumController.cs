@@ -11,10 +11,11 @@ public class SpectrumController : MonoBehaviour {
 
 	void Start() {
 		scale = transform.localScale;
+
 	}
 
 	void Update () {
-  		desiredScale = 1+AudioManager.spectrum[spectrumIndex];
+   		desiredScale = 1+AudioManager.spectrum[spectrumIndex];
 		//var desiredScale = Mathf.Log(AudioManager.spectrum[spectrumIndex], 2)*maxHeight * 100;
 		scale.z = Mathf.Lerp(transform.localScale.z,desiredScale, Time.deltaTime * responseSpeed);
 		transform.localScale = scale;
