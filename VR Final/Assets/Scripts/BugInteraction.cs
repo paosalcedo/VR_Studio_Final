@@ -7,6 +7,7 @@ public class BugInteraction : MonoBehaviour {
 
 	GameObject wing;
 	TrailRenderer tr;
+	LineRenderer lr;
 	Vector2 touch;
 
 	public Color colorTrail1, colorTrail2, colorTrail3, colorTrail4;
@@ -34,6 +35,21 @@ public class BugInteraction : MonoBehaviour {
 		tr = emitter.GetComponent<TrailRenderer> ();
 
 		tr.enabled = false;
+
+		lr = gameObject.AddComponent<LineRenderer> ();
+		lr.material = new Material (Shader.Find("Sprites/Default"));
+		lr.widthMultiplier = 0.005f;
+		lr.positionCount = 2;
+		lr.enabled = false;
+
+		float a = 0.4f;
+		float t = 0f;
+		Gradient gradient = new Gradient();
+		gradient.SetKeys(
+			new GradientColorKey[] { new GradientColorKey(Color.yellow, 0.0f), new GradientColorKey(Color.black, 1.0f) },
+			new GradientAlphaKey[] { new GradientAlphaKey(a, 0.0f), new GradientAlphaKey(t, 1.0f) }
+		);
+		lr.colorGradient = gradient;
 	}
 
 	void FixedUpdate () {
@@ -61,7 +77,9 @@ public class BugInteraction : MonoBehaviour {
 	// this happens whenever a hand is near this object
 
 	void HandHoverUpdate (Hand hand){
-		if (hand.otherHand.controller.GetPress (Valve.VR.EVRButtonId.k_EButton_SteamVR_Trigger)) {
+
+
+		if (hand.controller.GetPress (Valve.VR.EVRButtonId.k_EButton_SteamVR_Trigger)) {
 
 			hand.AttachObject (gameObject);
 			gameObject.transform.localEulerAngles = new Vector3 (gameObject.transform.localEulerAngles.x, 
@@ -97,22 +115,33 @@ public class BugInteraction : MonoBehaviour {
 
 		touch = hand.controller.GetAxis (Valve.VR.EVRButtonId.k_EButton_SteamVR_Touchpad);
 
+
 		if (hand.otherHand.controller.GetPress (Valve.VR.EVRButtonId.k_EButton_SteamVR_Trigger)) {
 			hand.HoverLock (interactable);
+//			hand.otherHand.controller.TriggerHapticPulse(500, Valve.VR.EVRButtonId.k_EButton_SteamVR_Trigger );
+
+			lr.enabled = true;;
 		} else {
 			hand.HoverUnlock (interactable);
+			lr.enabled = false;
 		}
 
-		if (hand.controller.GetPress (Valve.VR.EVRButtonId.k_EButton_SteamVR_Touchpad)) {
+		if (hand.controller.GetTouch (Valve.VR.EVRButtonId.k_EButton_SteamVR_Touchpad)) {
 			tr.enabled = true;
+//
+//			hand.controller.TriggerHapticPulse();
 
 			ChangeTrailColor (touch.x, colorTrail1, colorTrail2, colorTrail3, colorTrail4);
+			ChangeTrailColor (touch.y, colorTrail3, colorTrail4, colorTrail1, colorTrail2);
 
 		} else {
 			tr.enabled = false;
 		}
 
-		print (Valve.VR.EVRButtonId.k_EButton_SteamVR_Touchpad);
+		lr.SetPosition (0, hand.otherHand.transform.position);
+		lr.SetPosition (1, wing.transform.position);
+
+//		print (Valve.VR.EVRButtonId.k_EButton_SteamVR_Touchpad);
 
 		if (hand.controller.GetPressUp (Valve.VR.EVRButtonId.k_EButton_SteamVR_Trigger)) { // on Vive controller, this is trigger
 			hand.DetachObject( gameObject );

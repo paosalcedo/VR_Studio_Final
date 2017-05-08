@@ -43,28 +43,28 @@ public class EventController : MonoBehaviour {
 	public Animator animator;   
 
 //	float angleDifference;
-	float yRotation;
+//	float yRotation;
 
 	public Camera camera; // Change to VRCamera in inspector before building 
 
-	private float angleDifference;
-
-	public float AngleDifference {
-		get{ 
-			return angleDifference;
-		}
-
-		set{
-			angleDifference = value;
-
-			if (angleDifference > 1) {
-				angleDifference = 1;
-			}
-			if (angleDifference < -1) {
-				angleDifference = -1;
-			}
-		}
-	}
+//	private float angleDifference;
+//
+//	public float AngleDifference {
+//		get{ 
+//			return angleDifference;
+//		}
+//
+//		set{
+//			angleDifference = value;
+//
+//			if (angleDifference > 1) {
+//				angleDifference = 1;
+//			}
+//			if (angleDifference < -1) {
+//				angleDifference = -1;
+//			}
+//		}
+//	}
 
 	float linearValue;
 
@@ -78,7 +78,7 @@ public class EventController : MonoBehaviour {
 
 
 
-		yRotation = transform.rotation.y;
+//		yRotation = transform.rotation.y;
 
 		GameObject water = GameObject.Find ("WaterGround");
 		rend = water.GetComponent<Renderer> ();
@@ -87,7 +87,7 @@ public class EventController : MonoBehaviour {
 		print (rend.sharedMaterial.ToString ());
 		rend.material.SetFloat ("_Shininess", 100f);
 
-		AngleDifference = 0;
+//		AngleDifference = 0;
 	}
 
 	void Update () {
@@ -136,7 +136,7 @@ public class EventController : MonoBehaviour {
 			}
 		}
 
-		AngleDifference = transform.rotation.y - yRotation;
+//		AngleDifference = transform.rotation.y - yRotation;
 
 //		print (AngleDifference);
 
