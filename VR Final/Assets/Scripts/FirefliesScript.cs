@@ -8,6 +8,8 @@ public class FirefliesScript : MonoBehaviour {
 
 	float rad;
 
+	public float radMin, radMax;
+
 	Vector3 axis = new Vector3(0,0,1);
 	public float rotationsPerSecond = 0.02f;
 
@@ -41,7 +43,7 @@ public class FirefliesScript : MonoBehaviour {
 	void ChangeRadius(){
 
 
-		float temp = Random.Range (1.1f, 2.0f);
+		float temp = Random.Range (radMin, radMax);
 		rad = temp;
 
 	}
