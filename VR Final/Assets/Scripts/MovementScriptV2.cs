@@ -13,18 +13,19 @@ public class MovementScriptV2 : MonoBehaviour {
 	Vector3 newVec;
  //	public float avoidForce = 2f;
 	float callTime;
-	public bool listenForCall;
 	public float kinematicDelay; //the larger this value is, the longer it takes for the bug to regain control after being thrown.
 	public float minCallTime;
 	public float minCallVolume;
 	public float forwardForce = 50f;
 //	public float stableForce = 50f;
 	public float rotSpeed = 10f;
+	public float dizzyRotSpeed = 50f;
 //	public float rotCooldownValue;
 //	public float hoverVertSpeed;
 //	public float hoverHoriSpeed;
 //	public float amplitude;
 	public float moveToPlayerSpeed = 1f;
+	public float lengthOfDizziness;
 	float dist;
 	
 	private Vector3 tempPos;
@@ -35,9 +36,11 @@ public class MovementScriptV2 : MonoBehaviour {
 	private Quaternion _lookRotation;
     private Vector3 _direction;
 
+	public bool enableMic;
 	public bool playerIsCalling;
 	public bool grabbed;
-	public static bool isNearPlayer;
+	public bool bugWasThrownFast;
+	public bool bugIsDizzy;
 
 	void Start () {
 		Debug.Log(minCallVolume);
@@ -60,13 +63,12 @@ public class MovementScriptV2 : MonoBehaviour {
 		}
 
 		//FOR MIC INPUT
-		Debug.Log("mic volume is: " + SpectrumController.desiredScale);
+//		Debug.Log("mic volume is: " + SpectrumController.desiredScale);
 
-		if (SpectrumController.desiredScale > minCallVolume && listenForCall) {
+		if (SpectrumController.desiredScale > minCallVolume && enableMic) {
 			callTime += Time.deltaTime;
 			if (callTime > minCallTime) {
-				Debug.Log("bug hears you!");
-				GameObject.Find ("BugPrefab").SendMessage ("PlayerCallOn");
+ 				GameObject.Find ("BugPrefab").SendMessage ("PlayerCallOn");
 			}
 		} 
 		else {
@@ -90,7 +92,7 @@ public class MovementScriptV2 : MonoBehaviour {
 	
 	void MoveForward ()
 	{
- 		if (!playerIsCalling) {
+ 		if (!playerIsCalling && !bugIsDizzy) {
  			transform.position += transform.forward * forwardForce * Time.deltaTime;
  
 	    	//create the rotation we need to be in to look at the target
@@ -100,13 +102,17 @@ public class MovementScriptV2 : MonoBehaviour {
          	transform.rotation = Quaternion.Slerp(transform.rotation, _lookRotation, Time.deltaTime * rotSpeed);
 		}
 
+		if(bugIsDizzy){
+//			transform.position += Vector3.zero;
+			transform.Rotate(Vector3.up * dizzyRotSpeed);
+		}
+
  		Ray ray = new Ray (transform.position, transform.forward);
 		Debug.DrawRay (ray.origin, ray.direction * raycastRange, Color.red);
 		
 		RaycastHit rayHit = new RaycastHit ();		 
 		
 		if (Physics.Raycast (ray, out rayHit, raycastRange)) {
-			Debug.Log(rayHit.collider.name);
 			if (rayHit.transform.tag == "Wall" || rayHit.transform.tag == "Ground") {
 				newVec = rayHit.normal + Random.insideUnitSphere;				
 			} 
@@ -134,19 +140,31 @@ public class MovementScriptV2 : MonoBehaviour {
 		}
 	}
 
-	void RegainControl ()
-	{
+	void RegainControl (){
 		Invoke ("MakeKinematic", kinematicDelay);
 	}
 
-	void MakeKinematic(){
-		GetComponent<Rigidbody>().isKinematic = true;
+	void MakeKinematic ()
+	{
+		if (bugWasThrownFast == true) {
+			GetComponent<Rigidbody> ().isKinematic = true;
+			//add dizziness here
+			bugIsDizzy = true;
+		} else {
+			GetComponent<Rigidbody> ().isKinematic = true;
+		}
 	}
 
+	void StartDizziness (){
+		bugWasThrownFast = true;
+		Invoke("StopDizziness", 5f);
+ 	}
 
-	
-
-
+	void StopDizziness ()
+	{
+		bugWasThrownFast = false;
+		bugIsDizzy = false;
+	} 
 	
  
 }

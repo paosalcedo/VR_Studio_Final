@@ -79,8 +79,8 @@ public class BugInteraction : MonoBehaviour {
 	void HandHoverUpdate (Hand hand){
 
 
-		if (hand.controller.GetPress (Valve.VR.EVRButtonId.k_EButton_SteamVR_Trigger)) {
-
+		if (hand.GetStandardInteractionButton() == true) {
+//hand.controller.GetPress (Valve.VR.EVRButtonId.k_EButton_SteamVR_Trigger) || 
 			hand.AttachObject (gameObject);
 			gameObject.transform.localEulerAngles = new Vector3 (gameObject.transform.localEulerAngles.x, 
 				gameObject.transform.localEulerAngles.y, 
@@ -114,7 +114,7 @@ public class BugInteraction : MonoBehaviour {
 	void HandAttachedUpdate( Hand hand ) {
 
 		touch = hand.controller.GetAxis (Valve.VR.EVRButtonId.k_EButton_SteamVR_Touchpad);
-
+		gameObject.GetComponent<MovementScriptV2> ().grabbed = true;
 
 		if (hand.otherHand.controller.GetPress (Valve.VR.EVRButtonId.k_EButton_SteamVR_Trigger)) {
 			hand.HoverLock (interactable);
@@ -128,7 +128,7 @@ public class BugInteraction : MonoBehaviour {
 
 		if (hand.controller.GetTouch (Valve.VR.EVRButtonId.k_EButton_SteamVR_Touchpad)) {
 			tr.enabled = true;
-//
+
 //			hand.controller.TriggerHapticPulse();
 
 			ChangeTrailColor (touch.x, colorTrail1, colorTrail2, colorTrail3, colorTrail4);
@@ -142,14 +142,11 @@ public class BugInteraction : MonoBehaviour {
 		lr.SetPosition (1, wing.transform.position);
 
 //		print (Valve.VR.EVRButtonId.k_EButton_SteamVR_Touchpad);
-
-		if (hand.controller.GetPressUp (Valve.VR.EVRButtonId.k_EButton_SteamVR_Trigger)) { // on Vive controller, this is trigger
-			hand.DetachObject( gameObject );
-
-			if (gameObject.tag == "Creature") {
+		if (hand.controller.GetPressUp (Valve.VR.EVRButtonId.k_EButton_SteamVR_Trigger)) { // on Vive controller, this is trigg
+ 			hand.DetachObject( gameObject );
+ 			if (gameObject.tag == "Creature") {
 				wingAnim.enabled = true;
-
-
+				gameObject.GetComponent<MovementScriptV2>().grabbed = false;
 			}
 
 		}
@@ -165,7 +162,6 @@ public class BugInteraction : MonoBehaviour {
 	void OnDetachedFromHand( Hand hand ) {
 
 		GetComponent<Rigidbody>().isKinematic = false; // turns on physics
-		gameObject.GetComponent<MovementScriptV2>().grabbed = false;
 		gameObject.SendMessage ("RegainControl");
 
 		tr.enabled = false;
