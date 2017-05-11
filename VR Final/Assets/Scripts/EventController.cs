@@ -8,16 +8,22 @@ public class EventController : MonoBehaviour {
 
 	public Light light;
 
-	public ParticleSystem bubbles;
+	ParticleSystem [] fireflies;
+
+	public Transform wind;
 
 	Renderer rend;
 
 	public Material treeMat;
 	public Material skybox;
+	public Material eyeball;
 
 	LinearMapping lm;
 	CircularDrive cd;
 
+	public float windHeightMin, windHeightMax;
+
+	public float eyeMin, eyeMax, eyeStepMin, eyeStepMax;
 
 	public float lightMax, lightMin;
 
@@ -31,40 +37,18 @@ public class EventController : MonoBehaviour {
 
 	public Color colorSky1, colorSky2;
 
-	public Color colorTrail1, colorTrail2, colorTrail3, colorTrail4;
+//	public Color colorTrail1, colorTrail2, colorTrail3, colorTrail4;
 
 	public Color waterColor1, waterColor2;
 
 	public Color treeColor1, treeColor2;
 
-//	public float angleTrigger;
+	public Color eyeColor1, eyeColor2;
+//	public Animator animator;   
 
-
-	public Animator animator;   
-
-//	float angleDifference;
-//	float yRotation;
 
 	public Camera camera; // Change to VRCamera in inspector before building 
 
-//	private float angleDifference;
-//
-//	public float AngleDifference {
-//		get{ 
-//			return angleDifference;
-//		}
-//
-//		set{
-//			angleDifference = value;
-//
-//			if (angleDifference > 1) {
-//				angleDifference = 1;
-//			}
-//			if (angleDifference < -1) {
-//				angleDifference = -1;
-//			}
-//		}
-//	}
 
 	float linearValue;
 
@@ -76,9 +60,10 @@ public class EventController : MonoBehaviour {
 
 		lm = cd.GetComponent<LinearMapping> ();
 
+		GameObject psGo = GameObject.Find ("Fireflies");
+		fireflies = psGo.GetComponentsInChildren<ParticleSystem> ();
 
 
-//		yRotation = transform.rotation.y;
 
 		GameObject water = GameObject.Find ("WaterGround");
 		rend = water.GetComponent<Renderer> ();
@@ -87,7 +72,6 @@ public class EventController : MonoBehaviour {
 		print (rend.sharedMaterial.ToString ());
 		rend.material.SetFloat ("_Shininess", 100f);
 
-//		AngleDifference = 0;
 	}
 
 	void Update () {
@@ -109,14 +93,16 @@ public class EventController : MonoBehaviour {
 			ChangeSkyColor (colorSky1, colorSky2);
 			ChangeLightIntensity (lightMin, lightMax);
 			ChangeAtmosphere (atmoMin, atmoMax);
-			//		EmitBubbles (emitMin, emitMax);
-			
+			EmitFireflies (emitMin, emitMax);
+			RaiseWindZone (windHeightMin, windHeightMax);
 			ChangeWaterFresnel (fresMin, fresMax);
 //			ChangeTrailColor (colorTrail1, colorTrail2, colorTrail3, colorTrail4);
 			ChangeWaterColor (waterColor1, waterColor2);
 			
 			ChangeTreeMaterial (treeColor1, treeColor2);
 			ChangeGroundColor (groundColor1, groundColor2);
+			ChangeEyeBrightness (eyeMin, eyeMax, eyeStepMin, eyeStepMax);
+			ChangeEyeColor (eyeColor1, eyeColor2);
 
 		} else {
 
@@ -124,21 +110,21 @@ public class EventController : MonoBehaviour {
 				ChangeSkyColor (colorSky1, colorSky2);
 				ChangeLightIntensity (lightMin, lightMax);
 				ChangeAtmosphere (atmoMin, atmoMax);
-				//		EmitBubbles (emitMin, emitMax);
-
+				EmitFireflies (emitMin, emitMax);
+				RaiseWindZone (windHeightMin, windHeightMax);
 				ChangeWaterFresnel (fresMin, fresMax);
 //				ChangeTrailColor (colorTrail1, colorTrail2, colorTrail3, colorTrail4);
 				ChangeWaterColor (waterColor1, waterColor2);
 
 				ChangeTreeMaterial (treeColor1, treeColor2);
 				ChangeGroundColor (groundColor1, groundColor2);
+				ChangeEyeBrightness (eyeMin, eyeMax, eyeStepMin, eyeStepMax);
+				ChangeEyeColor (eyeColor1, eyeColor2);
+
 
 			}
 		}
 
-//		AngleDifference = transform.rotation.y - yRotation;
-
-//		print (AngleDifference);
 
 //		print("Linearmapping: " + linearValue);
 //
@@ -165,21 +151,15 @@ public class EventController : MonoBehaviour {
 		RenderSettings.skybox.SetFloat ("_AtmosphereThickness", exposure);
 	}
 
-	public void EmitBubbles(float min, float max){
-		float rate = UtilScript.remapRange (linearValue, 0, 1, min, max);
-		var emission = bubbles.emission;
-		emission.rateOverTime = rate;	
+	public void EmitFireflies(float min, float max){
+		for (int i = 0; i < fireflies.Length; i++) {
+			float rate = UtilScript.remapRange (linearValue, 0, 1, min, max);
+			var emission = fireflies[i].emission;
+			emission.rateOverTime = rate;
+		}
 	}
 		
 
-//	public float ScaleGameObject(Transform t, float min, float max){
-//		Vector3 scale = t.localScale;
-//		scale.y = UtilScript.remapRange (angleDifference, -1, 1, min, max);
-////		Debug.Log (scale.y);
-//
-//		return scale.y;
-//
-//	}
 
 	public void ChangeWaterFresnel(float min, float max){
 		float fresnel = UtilScript.remapRange (linearValue, 0, 1, min, max);
@@ -242,6 +222,30 @@ public class EventController : MonoBehaviour {
 
 		skybox.SetColor (" _GroundColor", lerpedColor); 
 	}
+
+	public void RaiseWindZone(float min, float max){
+		float height = UtilScript.remapRange (linearValue, 0, 1, min, max);
+
+		wind.position = new Vector3 (wind.position.x, height, wind.position.z);
+			
+	}
+
+	public void ChangeEyeBrightness(float min, float max, float stepMin, float stepMax){
+		float brightness = UtilScript.remapRange (linearValue, 0, 1, min, max);
+		float step = UtilScript.remapRange (linearValue, 0, 1, stepMin, stepMax);
+		eyeball.SetFloat ("_Brightness", brightness);
+		eyeball.SetFloat ("_StepSize", step);
+
+	}
+
+	public void ChangeEyeColor(Color c1, Color c2){
+		float colorChange = UtilScript.remapRange (linearValue, 0, 1, 0, 1);
+		Color lerpedColor = Color.LerpUnclamped(c1, c2, colorChange);
+		eyeball.SetColor ("_Color", lerpedColor);
+
+	}
+
+
 		
 
 }
