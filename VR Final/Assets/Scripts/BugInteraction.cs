@@ -10,6 +10,8 @@ public class BugInteraction : MonoBehaviour {
 	LineRenderer lr;
 	Vector2 touch;
 
+	float tempRPS;
+
 	public Color colorTrail1, colorTrail2, colorTrail3, colorTrail4;
 
 	public float widthMin, widthMax;
@@ -17,6 +19,8 @@ public class BugInteraction : MonoBehaviour {
 	EventController sceneControl;
 
 	Interactable interactable;
+
+	KeepRotating rotatingWing;
 
 	Vector3 lastPosition, fallbackVelocity;
 	Quaternion lastRotation, fallbackTorque;
@@ -29,11 +33,10 @@ public class BugInteraction : MonoBehaviour {
 	void Start () {
 		wing = GameObject.Find ("BugController");
 		sceneControl = wing.GetComponent<EventController> ();
+		rotatingWing = wing.GetComponent<KeepRotating> ();
 		interactable = GetComponent<Interactable> ();
 
-//		GameObject emitter = GameObject.Find ("Emitter");
-//		tr = emitter.GetComponent<TrailRenderer> ();
-
+		tempRPS = rotatingWing.rotationsPerSecond;
 		tr.enabled = false;
 
 		lr = gameObject.AddComponent<LineRenderer> ();
@@ -88,8 +91,8 @@ public class BugInteraction : MonoBehaviour {
 
 			if (gameObject.tag == "Creature") {
 				gameObject.GetComponent<MovementScriptV2> ().grabbed = true;
-				wingAnim.enabled = false;
-
+//				wingAnim.enabled = false;
+				rotatingWing.rotationsPerSecond = 0;
 				gameObject.SendMessage ("PlayerCallOff");
 			}
 		}
@@ -145,7 +148,8 @@ public class BugInteraction : MonoBehaviour {
 		if (hand.controller.GetPressUp (Valve.VR.EVRButtonId.k_EButton_SteamVR_Trigger)) { // on Vive controller, this is trigg
  			hand.DetachObject( gameObject );
  			if (gameObject.tag == "Creature") {
-				wingAnim.enabled = true;
+//				wingAnim.enabled = true;
+				rotatingWing.rotationsPerSecond = tempRPS;
 				gameObject.GetComponent<MovementScriptV2>().grabbed = false;
 			}
 
