@@ -1,31 +1,35 @@
 fileFormatVersion: 2
-guid: 86e268971063546dcb8c7286b7c15939
-timeCreated: 1494498218
+guid: 9f7045bfd7b924356b724b310751f1b9
+timeCreated: 1494558034
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
   fileIDToRecycleName:
     100000: //RootNode
-    100002: joint1
-    100004: joint2
-    100006: joint3
-    100008: joint4
-    100010: joint5
-    100012: joint6
-    100014: pCylinder21
+    100002: imagePlane1
+    100004: joint1
+    100006: joint2
+    100008: joint3
+    100010: joint4
+    100012: joint5
+    100014: joint6
+    100016: pCylinder16
+    100018: pCylinder21
     400000: //RootNode
-    400002: joint1
-    400004: joint2
-    400006: joint3
-    400008: joint4
-    400010: joint5
-    400012: joint6
-    400014: pCylinder21
+    400002: imagePlane1
+    400004: joint1
+    400006: joint2
+    400008: joint3
+    400010: joint4
+    400012: joint5
+    400014: joint6
+    400016: pCylinder16
+    400018: pCylinder21
     4300000: pCylinder21
-    7400000: ToCurl
-    7400002: ToCurl
-    7400004: Curl
-    7400006: OutCurl
+    7400000: Rolled
+    7400002: RollUp
+    7400004: Unroll
+    7400006: Jitter
     9500000: //RootNode
     13700000: pCylinder21
   materials:
@@ -44,7 +48,7 @@ ModelImporter:
     animationImportWarnings: 
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
-    animationCompression: 1
+    animationCompression: 3
     animationRotationError: 0.5
     animationPositionError: 0.5
     animationScaleError: 0.5
@@ -52,10 +56,10 @@ ModelImporter:
     extraExposedTransformPaths: []
     clipAnimations:
     - serializedVersion: 16
-      name: ToCurl
+      name: RollUp
       takeName: Take 001
       firstFrame: 1
-      lastFrame: 10
+      lastFrame: 8.9
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -78,6 +82,8 @@ ModelImporter:
       transformMask:
       - path: 
         weight: 1
+      - path: imagePlane1
+        weight: 1
       - path: joint1
         weight: 1
       - path: joint1/joint2
@@ -90,16 +96,18 @@ ModelImporter:
         weight: 1
       - path: joint1/joint2/joint3/joint4/joint5/joint6
         weight: 1
+      - path: pCylinder16
+        weight: 1
       - path: pCylinder21
         weight: 1
       maskType: 3
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: Curl
+      name: Rolled
       takeName: Take 001
-      firstFrame: 10
-      lastFrame: 20
+      firstFrame: 10.2
+      lastFrame: 12.1
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -122,6 +130,8 @@ ModelImporter:
       transformMask:
       - path: 
         weight: 1
+      - path: imagePlane1
+        weight: 1
       - path: joint1
         weight: 1
       - path: joint1/joint2
@@ -134,16 +144,18 @@ ModelImporter:
         weight: 1
       - path: joint1/joint2/joint3/joint4/joint5/joint6
         weight: 1
+      - path: pCylinder16
+        weight: 1
       - path: pCylinder21
         weight: 1
       maskType: 3
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: OutCurl
+      name: Unroll
       takeName: Take 001
-      firstFrame: 20
-      lastFrame: 30
+      firstFrame: 20.5
+      lastFrame: 27.599998
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -166,6 +178,8 @@ ModelImporter:
       transformMask:
       - path: 
         weight: 1
+      - path: imagePlane1
+        weight: 1
       - path: joint1
         weight: 1
       - path: joint1/joint2
@@ -178,6 +192,56 @@ ModelImporter:
         weight: 1
       - path: joint1/joint2/joint3/joint4/joint5/joint6
         weight: 1
+      - path: pCylinder16
+        weight: 1
+      - path: pCylinder21
+        weight: 1
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Jitter
+      takeName: Take 001
+      firstFrame: 61.700005
+      lastFrame: 66
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 1
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: imagePlane1
+        weight: 1
+      - path: joint1
+        weight: 1
+      - path: joint1/joint2
+        weight: 1
+      - path: joint1/joint2/joint3
+        weight: 1
+      - path: joint1/joint2/joint3/joint4
+        weight: 1
+      - path: joint1/joint2/joint3/joint4/joint5
+        weight: 1
+      - path: joint1/joint2/joint3/joint4/joint5/joint6
+        weight: 1
+      - path: pCylinder16
+        weight: 1
       - path: pCylinder21
         weight: 1
       maskType: 3
@@ -186,7 +250,7 @@ ModelImporter:
     isReadable: 1
   meshes:
     lODScreenPercentages: []
-    globalScale: 5
+    globalScale: 0.1
     meshCompression: 0
     addColliders: 0
     importBlendShapes: 1

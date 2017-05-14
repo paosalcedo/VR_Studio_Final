@@ -6,7 +6,7 @@ using Valve.VR.InteractionSystem;
 public class BugInteraction : MonoBehaviour {
 
 	GameObject wing;
-	TrailRenderer tr;
+	public TrailRenderer tr;
 	LineRenderer lr;
 	Vector2 touch;
 
@@ -31,8 +31,8 @@ public class BugInteraction : MonoBehaviour {
 		sceneControl = wing.GetComponent<EventController> ();
 		interactable = GetComponent<Interactable> ();
 
-		GameObject emitter = GameObject.Find ("Emitter");
-		tr = emitter.GetComponent<TrailRenderer> ();
+//		GameObject emitter = GameObject.Find ("Emitter");
+//		tr = emitter.GetComponent<TrailRenderer> ();
 
 		tr.enabled = false;
 

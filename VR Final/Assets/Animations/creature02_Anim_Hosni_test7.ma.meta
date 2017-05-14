@@ -1,0 +1,688 @@
+fileFormatVersion: 2
+guid: ae4c4b4130dfc4b939cbf311a02fbcd9
+timeCreated: 1494718242
+licenseType: Free
+ModelImporter:
+  serializedVersion: 19
+  fileIDToRecycleName:
+    100000: //RootNode
+    100002: group1
+    100004: joint1
+    100006: joint2
+    100008: joint3
+    100010: joint4
+    100012: joint5
+    100014: joint6
+    100016: left
+    100018: Tail1
+    400000: //RootNode
+    400002: group1
+    400004: joint1
+    400006: joint2
+    400008: joint3
+    400010: joint4
+    400012: joint5
+    400014: joint6
+    400016: left
+    400018: Tail1
+    4300000: Tail1
+    7400000: Enter_NormalDash
+    7400002: Hover
+    7400004: NormalDash
+    7400006: Enter_FastDash
+    7400008: FastDash
+    7400010: Exit_Dash
+    7400012: HeadTwist
+    7400014: Curl1
+    7400016: Dizzy
+    7400018: HeadTwist2
+    7400020: Curl2
+    7400022: Eating
+    9500000: //RootNode
+    13700000: Tail1
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: Enter_NormalDash
+      takeName: Take 001
+      firstFrame: 0
+      lastFrame: 4
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: group1
+        weight: 1
+      - path: group1/joint1
+        weight: 1
+      - path: group1/joint1/joint2
+        weight: 1
+      - path: group1/joint1/joint2/joint3
+        weight: 1
+      - path: group1/joint1/joint2/joint3/joint4
+        weight: 1
+      - path: group1/joint1/joint2/joint3/joint4/joint5
+        weight: 1
+      - path: group1/joint1/joint2/joint3/joint4/joint5/joint6
+        weight: 1
+      - path: left
+        weight: 1
+      - path: Tail1
+        weight: 1
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Hover
+      takeName: Take 001
+      firstFrame: 108
+      lastFrame: 125
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 1
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: group1
+        weight: 1
+      - path: group1/joint1
+        weight: 1
+      - path: group1/joint1/joint2
+        weight: 1
+      - path: group1/joint1/joint2/joint3
+        weight: 1
+      - path: group1/joint1/joint2/joint3/joint4
+        weight: 1
+      - path: group1/joint1/joint2/joint3/joint4/joint5
+        weight: 1
+      - path: group1/joint1/joint2/joint3/joint4/joint5/joint6
+        weight: 1
+      - path: left
+        weight: 1
+      - path: Tail1
+        weight: 1
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: NormalDash
+      takeName: Take 001
+      firstFrame: 6
+      lastFrame: 10
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 1
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: group1
+        weight: 1
+      - path: group1/joint1
+        weight: 1
+      - path: group1/joint1/joint2
+        weight: 1
+      - path: group1/joint1/joint2/joint3
+        weight: 1
+      - path: group1/joint1/joint2/joint3/joint4
+        weight: 1
+      - path: group1/joint1/joint2/joint3/joint4/joint5
+        weight: 1
+      - path: group1/joint1/joint2/joint3/joint4/joint5/joint6
+        weight: 1
+      - path: left
+        weight: 1
+      - path: Tail1
+        weight: 1
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Enter_FastDash
+      takeName: Take 001
+      firstFrame: 9
+      lastFrame: 19
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: group1
+        weight: 1
+      - path: group1/joint1
+        weight: 1
+      - path: group1/joint1/joint2
+        weight: 1
+      - path: group1/joint1/joint2/joint3
+        weight: 1
+      - path: group1/joint1/joint2/joint3/joint4
+        weight: 1
+      - path: group1/joint1/joint2/joint3/joint4/joint5
+        weight: 1
+      - path: group1/joint1/joint2/joint3/joint4/joint5/joint6
+        weight: 1
+      - path: left
+        weight: 1
+      - path: Tail1
+        weight: 1
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: FastDash
+      takeName: Take 001
+      firstFrame: 19
+      lastFrame: 21
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 1
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: group1
+        weight: 1
+      - path: group1/joint1
+        weight: 1
+      - path: group1/joint1/joint2
+        weight: 1
+      - path: group1/joint1/joint2/joint3
+        weight: 1
+      - path: group1/joint1/joint2/joint3/joint4
+        weight: 1
+      - path: group1/joint1/joint2/joint3/joint4/joint5
+        weight: 1
+      - path: group1/joint1/joint2/joint3/joint4/joint5/joint6
+        weight: 1
+      - path: left
+        weight: 1
+      - path: Tail1
+        weight: 1
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Exit_Dash
+      takeName: Take 001
+      firstFrame: 25
+      lastFrame: 28
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: group1
+        weight: 1
+      - path: group1/joint1
+        weight: 1
+      - path: group1/joint1/joint2
+        weight: 1
+      - path: group1/joint1/joint2/joint3
+        weight: 1
+      - path: group1/joint1/joint2/joint3/joint4
+        weight: 1
+      - path: group1/joint1/joint2/joint3/joint4/joint5
+        weight: 1
+      - path: group1/joint1/joint2/joint3/joint4/joint5/joint6
+        weight: 1
+      - path: left
+        weight: 1
+      - path: Tail1
+        weight: 1
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: HeadTwist
+      takeName: Take 001
+      firstFrame: 51
+      lastFrame: 55
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: group1
+        weight: 1
+      - path: group1/joint1
+        weight: 1
+      - path: group1/joint1/joint2
+        weight: 1
+      - path: group1/joint1/joint2/joint3
+        weight: 1
+      - path: group1/joint1/joint2/joint3/joint4
+        weight: 1
+      - path: group1/joint1/joint2/joint3/joint4/joint5
+        weight: 1
+      - path: group1/joint1/joint2/joint3/joint4/joint5/joint6
+        weight: 1
+      - path: left
+        weight: 1
+      - path: Tail1
+        weight: 1
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Curl1
+      takeName: Take 001
+      firstFrame: 27
+      lastFrame: 39
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: group1
+        weight: 1
+      - path: group1/joint1
+        weight: 1
+      - path: group1/joint1/joint2
+        weight: 1
+      - path: group1/joint1/joint2/joint3
+        weight: 1
+      - path: group1/joint1/joint2/joint3/joint4
+        weight: 1
+      - path: group1/joint1/joint2/joint3/joint4/joint5
+        weight: 1
+      - path: group1/joint1/joint2/joint3/joint4/joint5/joint6
+        weight: 1
+      - path: left
+        weight: 1
+      - path: Tail1
+        weight: 1
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Dizzy
+      takeName: Take 001
+      firstFrame: 31
+      lastFrame: 35
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 1
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: group1
+        weight: 1
+      - path: group1/joint1
+        weight: 1
+      - path: group1/joint1/joint2
+        weight: 1
+      - path: group1/joint1/joint2/joint3
+        weight: 1
+      - path: group1/joint1/joint2/joint3/joint4
+        weight: 1
+      - path: group1/joint1/joint2/joint3/joint4/joint5
+        weight: 1
+      - path: group1/joint1/joint2/joint3/joint4/joint5/joint6
+        weight: 1
+      - path: left
+        weight: 1
+      - path: Tail1
+        weight: 1
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: HeadTwist2
+      takeName: Take 001
+      firstFrame: 42
+      lastFrame: 46
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: group1
+        weight: 1
+      - path: group1/joint1
+        weight: 1
+      - path: group1/joint1/joint2
+        weight: 1
+      - path: group1/joint1/joint2/joint3
+        weight: 1
+      - path: group1/joint1/joint2/joint3/joint4
+        weight: 1
+      - path: group1/joint1/joint2/joint3/joint4/joint5
+        weight: 1
+      - path: group1/joint1/joint2/joint3/joint4/joint5/joint6
+        weight: 1
+      - path: left
+        weight: 1
+      - path: Tail1
+        weight: 1
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Curl2
+      takeName: Take 001
+      firstFrame: 72
+      lastFrame: 76
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: group1
+        weight: 1
+      - path: group1/joint1
+        weight: 1
+      - path: group1/joint1/joint2
+        weight: 1
+      - path: group1/joint1/joint2/joint3
+        weight: 1
+      - path: group1/joint1/joint2/joint3/joint4
+        weight: 1
+      - path: group1/joint1/joint2/joint3/joint4/joint5
+        weight: 1
+      - path: group1/joint1/joint2/joint3/joint4/joint5/joint6
+        weight: 1
+      - path: left
+        weight: 1
+      - path: Tail1
+        weight: 1
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Eating
+      takeName: Take 001
+      firstFrame: 82
+      lastFrame: 94
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: group1
+        weight: 1
+      - path: group1/joint1
+        weight: 1
+      - path: group1/joint1/joint2
+        weight: 1
+      - path: group1/joint1/joint2/joint3
+        weight: 1
+      - path: group1/joint1/joint2/joint3/joint4
+        weight: 1
+      - path: group1/joint1/joint2/joint3/joint4/joint5
+        weight: 1
+      - path: group1/joint1/joint2/joint3/joint4/joint5/joint6
+        weight: 1
+      - path: left
+        weight: 1
+      - path: Tail1
+        weight: 1
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 0.02
+    meshCompression: 0
+    addColliders: 0
+    importBlendShapes: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    rootMotionBoneRotation: {x: 0, y: 0, z: 0, w: 1}
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 2
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

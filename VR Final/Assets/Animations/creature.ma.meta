@@ -1,6 +1,6 @@
 fileFormatVersion: 2
-guid: 47d84a4f832b142dd9a0cd4da27e2bb3
-timeCreated: 1494499698
+guid: 04d644fa83b3241a78c20292aaee1767
+timeCreated: 1494606903
 licenseType: Free
 ModelImporter:
   serializedVersion: 19
@@ -12,7 +12,8 @@ ModelImporter:
     100008: joint4
     100010: joint5
     100012: joint6
-    100014: Tail1
+    100014: left
+    100016: Tail1
     400000: //RootNode
     400002: joint1
     400004: joint2
@@ -20,15 +21,20 @@ ModelImporter:
     400008: joint4
     400010: joint5
     400012: joint6
-    400014: Tail1
+    400014: left
+    400016: Tail1
     4300000: Tail1
-    7400000: Dizzy
-    7400002: ToSlowDash
-    7400004: OutSlowDash
+    7400000: Enter_Normaldash
+    7400002: NormalDash
+    7400004: Enter_FastDash
     7400006: FastDash
-    7400008: OutFastDash
-    7400010: ToFastDash
-    7400012: SlowDash
+    7400008: Exit_Dash
+    7400010: Twist
+    7400012: Twist2
+    7400014: Curl
+    7400016: Nod
+    7400018: Eating
+    7400020: Hover
     9500000: //RootNode
     13700000: Tail1
   materials:
@@ -40,7 +46,7 @@ ModelImporter:
     bakeSimulation: 0
     resampleCurves: 1
     optimizeGameObjects: 0
-    motionNodeName: 
+    motionNodeName: joint1
     rigImportErrors: 
     rigImportWarnings: 
     animationImportErrors: 
@@ -55,53 +61,9 @@ ModelImporter:
     extraExposedTransformPaths: []
     clipAnimations:
     - serializedVersion: 16
-      name: Dizzy
+      name: Enter_Normaldash
       takeName: Take 001
-      firstFrame: 30
-      lastFrame: 36
-      wrapMode: 0
-      orientationOffsetY: 0
-      level: 0
-      cycleOffset: 0
-      loop: 0
-      hasAdditiveReferencePose: 0
-      loopTime: 1
-      loopBlend: 0
-      loopBlendOrientation: 0
-      loopBlendPositionY: 0
-      loopBlendPositionXZ: 0
-      keepOriginalOrientation: 0
-      keepOriginalPositionY: 1
-      keepOriginalPositionXZ: 0
-      heightFromFeet: 0
-      mirror: 0
-      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
-      curves: []
-      events: []
-      transformMask:
-      - path: 
-        weight: 1
-      - path: joint1
-        weight: 1
-      - path: joint1/joint2
-        weight: 1
-      - path: joint1/joint2/joint3
-        weight: 1
-      - path: joint1/joint2/joint3/joint4
-        weight: 1
-      - path: joint1/joint2/joint3/joint4/joint5
-        weight: 1
-      - path: joint1/joint2/joint3/joint4/joint5/joint6
-        weight: 1
-      - path: Tail1
-        weight: 1
-      maskType: 3
-      maskSource: {instanceID: 0}
-      additiveReferencePoseFrame: 0
-    - serializedVersion: 16
-      name: ToSlowDash
-      takeName: Take 001
-      firstFrame: 1
+      firstFrame: 0
       lastFrame: 4
       wrapMode: 0
       orientationOffsetY: 0
@@ -137,16 +99,64 @@ ModelImporter:
         weight: 1
       - path: joint1/joint2/joint3/joint4/joint5/joint6
         weight: 1
+      - path: left
+        weight: 1
       - path: Tail1
         weight: 1
       maskType: 3
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: OutSlowDash
+      name: NormalDash
+      takeName: Take 001
+      firstFrame: 6
+      lastFrame: 10
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 1
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: joint1
+        weight: 1
+      - path: joint1/joint2
+        weight: 1
+      - path: joint1/joint2/joint3
+        weight: 1
+      - path: joint1/joint2/joint3/joint4
+        weight: 1
+      - path: joint1/joint2/joint3/joint4/joint5
+        weight: 1
+      - path: joint1/joint2/joint3/joint4/joint5/joint6
+        weight: 1
+      - path: left
+        weight: 1
+      - path: Tail1
+        weight: 1
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Enter_FastDash
       takeName: Take 001
       firstFrame: 9
-      lastFrame: 14
+      lastFrame: 19
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -180,6 +190,8 @@ ModelImporter:
       - path: joint1/joint2/joint3/joint4/joint5
         weight: 1
       - path: joint1/joint2/joint3/joint4/joint5/joint6
+        weight: 1
+      - path: left
         weight: 1
       - path: Tail1
         weight: 1
@@ -189,8 +201,8 @@ ModelImporter:
     - serializedVersion: 16
       name: FastDash
       takeName: Take 001
-      firstFrame: 20
-      lastFrame: 23
+      firstFrame: 19
+      lastFrame: 21
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -198,7 +210,7 @@ ModelImporter:
       loop: 0
       hasAdditiveReferencePose: 0
       loopTime: 1
-      loopBlend: 0
+      loopBlend: 1
       loopBlendOrientation: 0
       loopBlendPositionY: 0
       loopBlendPositionXZ: 0
@@ -225,16 +237,18 @@ ModelImporter:
         weight: 1
       - path: joint1/joint2/joint3/joint4/joint5/joint6
         weight: 1
+      - path: left
+        weight: 1
       - path: Tail1
         weight: 1
       maskType: 3
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: OutFastDash
+      name: Exit_Dash
       takeName: Take 001
-      firstFrame: 24
-      lastFrame: 27
+      firstFrame: 25
+      lastFrame: 29
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -269,23 +283,25 @@ ModelImporter:
         weight: 1
       - path: joint1/joint2/joint3/joint4/joint5/joint6
         weight: 1
+      - path: left
+        weight: 1
       - path: Tail1
         weight: 1
       maskType: 3
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: ToFastDash
+      name: Twist
       takeName: Take 001
-      firstFrame: 16
-      lastFrame: 20
+      firstFrame: 51
+      lastFrame: 55
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-      loopTime: 1
+      loopTime: 0
       loopBlend: 0
       loopBlendOrientation: 0
       loopBlendPositionY: 0
@@ -313,23 +329,25 @@ ModelImporter:
         weight: 1
       - path: joint1/joint2/joint3/joint4/joint5/joint6
         weight: 1
+      - path: left
+        weight: 1
       - path: Tail1
         weight: 1
       maskType: 3
       maskSource: {instanceID: 0}
       additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: SlowDash
+      name: Twist2
       takeName: Take 001
-      firstFrame: 4
-      lastFrame: 9
+      firstFrame: 42
+      lastFrame: 46
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-      loopTime: 1
+      loopTime: 0
       loopBlend: 0
       loopBlendOrientation: 0
       loopBlendPositionY: 0
@@ -356,6 +374,192 @@ ModelImporter:
       - path: joint1/joint2/joint3/joint4/joint5
         weight: 1
       - path: joint1/joint2/joint3/joint4/joint5/joint6
+        weight: 1
+      - path: left
+        weight: 1
+      - path: Tail1
+        weight: 1
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Curl
+      takeName: Take 001
+      firstFrame: 62
+      lastFrame: 66
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: joint1
+        weight: 1
+      - path: joint1/joint2
+        weight: 1
+      - path: joint1/joint2/joint3
+        weight: 1
+      - path: joint1/joint2/joint3/joint4
+        weight: 1
+      - path: joint1/joint2/joint3/joint4/joint5
+        weight: 1
+      - path: joint1/joint2/joint3/joint4/joint5/joint6
+        weight: 1
+      - path: left
+        weight: 1
+      - path: Tail1
+        weight: 1
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Nod
+      takeName: Take 001
+      firstFrame: 72
+      lastFrame: 75
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: joint1
+        weight: 1
+      - path: joint1/joint2
+        weight: 1
+      - path: joint1/joint2/joint3
+        weight: 1
+      - path: joint1/joint2/joint3/joint4
+        weight: 1
+      - path: joint1/joint2/joint3/joint4/joint5
+        weight: 1
+      - path: joint1/joint2/joint3/joint4/joint5/joint6
+        weight: 1
+      - path: left
+        weight: 1
+      - path: Tail1
+        weight: 1
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Eating
+      takeName: Take 001
+      firstFrame: 82
+      lastFrame: 94
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 1
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: joint1
+        weight: 1
+      - path: joint1/joint2
+        weight: 1
+      - path: joint1/joint2/joint3
+        weight: 1
+      - path: joint1/joint2/joint3/joint4
+        weight: 1
+      - path: joint1/joint2/joint3/joint4/joint5
+        weight: 1
+      - path: joint1/joint2/joint3/joint4/joint5/joint6
+        weight: 1
+      - path: left
+        weight: 1
+      - path: Tail1
+        weight: 1
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: Hover
+      takeName: Take 001
+      firstFrame: 108
+      lastFrame: 125
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 1
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask:
+      - path: 
+        weight: 1
+      - path: joint1
+        weight: 1
+      - path: joint1/joint2
+        weight: 1
+      - path: joint1/joint2/joint3
+        weight: 1
+      - path: joint1/joint2/joint3/joint4
+        weight: 1
+      - path: joint1/joint2/joint3/joint4/joint5
+        weight: 1
+      - path: joint1/joint2/joint3/joint4/joint5/joint6
+        weight: 1
+      - path: left
         weight: 1
       - path: Tail1
         weight: 1
@@ -365,7 +569,7 @@ ModelImporter:
     isReadable: 1
   meshes:
     lODScreenPercentages: []
-    globalScale: 1
+    globalScale: 0.02
     meshCompression: 0
     addColliders: 0
     importBlendShapes: 1
