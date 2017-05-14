@@ -20,7 +20,7 @@ public class BugInteraction : MonoBehaviour {
 
 	Interactable interactable;
 
-	KeepRotating rotatingWing;
+	public KeepRotating rotatingWing;
 
 	Vector3 lastPosition, fallbackVelocity;
 	Quaternion lastRotation, fallbackTorque;
@@ -33,10 +33,9 @@ public class BugInteraction : MonoBehaviour {
 	void Start () {
 		wing = GameObject.Find ("BugController");
 		sceneControl = wing.GetComponent<EventController> ();
-		rotatingWing = wing.GetComponent<KeepRotating> ();
 		interactable = GetComponent<Interactable> ();
 
-		tempRPS = rotatingWing.rotationsPerSecond;
+
 		tr.enabled = false;
 
 		lr = gameObject.AddComponent<LineRenderer> ();
@@ -53,6 +52,8 @@ public class BugInteraction : MonoBehaviour {
 			new GradientAlphaKey[] { new GradientAlphaKey(a, 0.0f), new GradientAlphaKey(t, 1.0f) }
 		);
 		lr.colorGradient = gradient;
+
+		tempRPS = rotatingWing.rotationsPerSecond;
 	}
 
 	void FixedUpdate () {
