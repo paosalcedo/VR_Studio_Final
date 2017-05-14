@@ -17,6 +17,8 @@ public class RootReference : MonoBehaviour {
 		Vector3 pos = root.transform.position;
 
 		transform.position = pos;
+
+
 		
 	}
 }
