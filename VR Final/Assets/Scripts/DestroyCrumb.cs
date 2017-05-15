@@ -52,6 +52,7 @@ public class DestroyCrumb : MonoBehaviour {
 
 		yield return new WaitForSeconds(0.8f);
 
+		anim.SetBool ("isEating", false);
 		Destroy (clone);
 		MoveToCrumb.crumbs.Remove (gameObject);
 		Destroy(gameObject);

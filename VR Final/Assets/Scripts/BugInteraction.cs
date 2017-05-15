@@ -121,9 +121,8 @@ public class BugInteraction : MonoBehaviour {
 	// this is like "Update" as long as we're holding something
 
 	void HandAttachedUpdate( Hand hand ) {
-
 		touch = hand.controller.GetAxis (Valve.VR.EVRButtonId.k_EButton_SteamVR_Touchpad);
-		gameObject.GetComponent<MovementScriptV2> ().grabbed = true;
+//		gameObject.GetComponent<MovementScriptV2> ().grabbed = true;
 
 		if (hand.otherHand.GetStandardInteractionButton() == true) {
 			hand.HoverLock (interactable);
