@@ -19,7 +19,7 @@ public class GestureToCreature : MonoBehaviour {
  		GetComponent<VelocityEstimator>().BeginEstimatingVelocity();
  		handVelo = Vector3.zero;
 		_hand = GetComponent<Hand>();
-		bug = GameObject.Find("BugPrefab");		
+		bug = GameObject.Find("MainBugPrefab");		
 	}
 	
 	// Update is called once per frame
@@ -37,7 +37,7 @@ public class GestureToCreature : MonoBehaviour {
 		if (handVelo.magnitude > gestureMinVelo && !bug.GetComponent<MovementScriptV2>().grabbed) {
 			waveTime += Time.deltaTime;
 			if (waveTime > 1f) {
-				GameObject.Find ("BugPrefab").SendMessage ("PlayerCallOn");
+				GameObject.Find ("MainBugPrefab").SendMessage ("PlayerCallOn");
 			}
 		} 
 //		else if(MovementScriptV2.isNearPlayer){
@@ -53,7 +53,7 @@ public class GestureToCreature : MonoBehaviour {
 		if (handVelo.magnitude > dizzyMinVelo && _hand.GetStandardInteractionButtonUp() == true && !bug.GetComponent<MovementScriptV2>().grabbed) {
 			Debug.Log("GETTING DIZZY!");
 			Debug.Log ("hand velocity is " + handVelo.magnitude);
-			GameObject.Find("BugPrefab").SendMessage("StartDizziness");	
+			GameObject.Find("MainBugPrefab").SendMessage("StartDizziness");	
 		}
 
 	}

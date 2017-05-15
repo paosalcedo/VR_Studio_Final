@@ -5,6 +5,8 @@ using Valve.VR.InteractionSystem;
 
 public class BugInteraction : MonoBehaviour {
 
+	Animator anim;
+
 	GameObject wing;
 	public TrailRenderer tr;
 	LineRenderer lr;
@@ -31,6 +33,8 @@ public class BugInteraction : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+
+		anim = GetComponent<Animator> ();
 		wing = GameObject.Find ("BugController");
 		sceneControl = wing.GetComponent<EventController> ();
 		interactable = GetComponent<Interactable> ();
@@ -83,7 +87,7 @@ public class BugInteraction : MonoBehaviour {
 	void HandHoverUpdate (Hand hand){
 
 
-		if (hand.GetStandardInteractionButton() == true) {
+		if (hand.GetStandardInteractionButton() ==  true) {
 //hand.controller.GetPress (Valve.VR.EVRButtonId.k_EButton_SteamVR_Trigger) || 
 			hand.AttachObject (gameObject);
 			gameObject.transform.localEulerAngles = new Vector3 (gameObject.transform.localEulerAngles.x, 
@@ -92,6 +96,7 @@ public class BugInteraction : MonoBehaviour {
 
 			if (gameObject.tag == "Creature") {
 				gameObject.GetComponent<MovementScriptV2> ().grabbed = true;
+				anim.SetBool ("isGrabbed", true);
 //				wingAnim.enabled = false;
 				rotatingWing.rotationsPerSecond = 0;
 				gameObject.SendMessage ("PlayerCallOff");
@@ -120,7 +125,7 @@ public class BugInteraction : MonoBehaviour {
 		touch = hand.controller.GetAxis (Valve.VR.EVRButtonId.k_EButton_SteamVR_Touchpad);
 		gameObject.GetComponent<MovementScriptV2> ().grabbed = true;
 
-		if (hand.otherHand.controller.GetPress (Valve.VR.EVRButtonId.k_EButton_SteamVR_Trigger)) {
+		if (hand.otherHand.GetStandardInteractionButton() == true) {
 			hand.HoverLock (interactable);
 //			hand.otherHand.controller.TriggerHapticPulse(500, Valve.VR.EVRButtonId.k_EButton_SteamVR_Trigger );
 
@@ -146,7 +151,8 @@ public class BugInteraction : MonoBehaviour {
 		lr.SetPosition (1, wing.transform.position);
 
 //		print (Valve.VR.EVRButtonId.k_EButton_SteamVR_Touchpad);
-		if (hand.controller.GetPressUp (Valve.VR.EVRButtonId.k_EButton_SteamVR_Trigger)) { // on Vive controller, this is trigg
+		if (hand.GetStandardInteractionButtonUp() ==  true){
+//		if (hand.controller.GetPressUp (Valve.VR.EVRButtonId.k_EButton_SteamVR_Trigger)) { // on Vive controller, this is trigg
  			hand.DetachObject( gameObject );
  			if (gameObject.tag == "Creature") {
 //				wingAnim.enabled = true;
@@ -168,6 +174,7 @@ public class BugInteraction : MonoBehaviour {
 
 		GetComponent<Rigidbody>().isKinematic = false; // turns on physics
 		gameObject.SendMessage ("RegainControl");
+		anim.SetBool ("isGrabbed", false);
 
 		tr.enabled = false;
 		tr.Clear();

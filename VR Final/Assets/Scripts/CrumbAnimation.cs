@@ -12,15 +12,12 @@ public class CrumbAnimation : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		
-	}
-
-	void onCollisionEnter (Collision coll)
-	{
-		if (coll.gameObject.tag == "Ground") {
+		if (transform.position.y < 0) {
 			anim.SetBool ("Thrown", false);			
-			anim.SetBool ("hitGround", true);		
-		}		 
+			anim.SetBool ("HitGround", true);	
+			Debug.Log ("hit ground!");
+		}
+
 	}
 
 	public void RollUp(){

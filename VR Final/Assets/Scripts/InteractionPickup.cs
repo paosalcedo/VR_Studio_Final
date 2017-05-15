@@ -74,6 +74,7 @@ public class InteractionPickup : MonoBehaviour {
 
 		if ( hand.GetStandardInteractionButton() == false ) { // on Vive controller, this is trigger
 			hand.DetachObject( gameObject );
+			gameObject.SendMessage ("RollUp");
 //			GameObject.Find("Creature").SendMessage("ReleaseCreature");
 			if (gameObject.tag == "Creature") {
 				gameObject.GetComponent<MovementScriptV2>().grabbed = false;

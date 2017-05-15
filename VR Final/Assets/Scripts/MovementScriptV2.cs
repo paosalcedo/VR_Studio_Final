@@ -68,7 +68,7 @@ public class MovementScriptV2 : MonoBehaviour {
 		if (SpectrumController.desiredScale > minCallVolume && enableMic) {
 			callTime += Time.deltaTime;
 			if (callTime > minCallTime) {
- 				GameObject.Find ("BugPrefab").SendMessage ("PlayerCallOn");
+ 				GameObject.Find ("MainBugPrefab").SendMessage ("PlayerCallOn");
 			}
 		} 
 		else {
