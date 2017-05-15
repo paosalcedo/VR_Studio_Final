@@ -51,6 +51,7 @@ public class MoveToCrumb : MonoBehaviour {
 		Debug.Log ("CRUMB SEEKING ACTIVE");
 		Vector3 crumbDir;
 		if (crumbs.Count > 0) {
+			anim.SetBool("isDashing", true);
 			crumbDir = crumbs [0].transform.position - transform.position;
  
 			//make the creature look at the crumb
@@ -67,7 +68,7 @@ public class MoveToCrumb : MonoBehaviour {
 
 	void DestroyCrumb ()
 	{
-		Destroy(crumbs[0].gameObject);
+ 		Destroy(crumbs[0].gameObject);
 		crumbs.Remove(crumbs[0].gameObject);
 	}
 

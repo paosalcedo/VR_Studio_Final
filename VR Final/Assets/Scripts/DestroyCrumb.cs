@@ -27,6 +27,7 @@ public class DestroyCrumb : MonoBehaviour {
 	void Update ()
 	{
 		if (Vector3.Distance (transform.position, bug.transform.position) <= distToBug) {
+			anim.SetBool("isDashing", false);
 			StartCoroutine("EatAndWait");
  		}
 	}

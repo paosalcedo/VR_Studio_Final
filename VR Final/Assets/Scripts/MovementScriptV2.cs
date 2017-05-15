@@ -130,7 +130,7 @@ public class MovementScriptV2 : MonoBehaviour {
 //		Debug.Log(transform.rotation.eulerAngles.y - _lookRotation.eulerAngles.y);
  
 		if (playerIsCalling) {
-			anim.SetBool("isTwisting", true); 
+//			anim.SetBool("isTwisting", true); 
 			dist = Vector3.Distance (player.position, transform.position);
 			Vector3 playerDir = ((player.forward * 0.75f) + (player.up * 1.5f)) - transform.position;
 			//ROTATE NECK animation state here.
@@ -141,7 +141,7 @@ public class MovementScriptV2 : MonoBehaviour {
 			transform.rotation = Quaternion.Slerp (transform.rotation, _lookRotation, Time.deltaTime * rotSpeed);
 			Debug.Log("rotation diff: " + (transform.rotation.eulerAngles.y - _lookRotation.eulerAngles.y));
 			if ((transform.rotation.eulerAngles.y - _lookRotation.eulerAngles.y) >= -5f) {
-				anim.SetBool("isTwisting", false);
+//				anim.SetBool("isTwisting", false);
 				transform.position += playerDir * moveToPlayerSpeed * Time.deltaTime;	
 				if (dist > 2f) {
 					anim.SetBool ("isDashing", true);
