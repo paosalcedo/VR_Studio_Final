@@ -7,7 +7,8 @@ public class MovementScriptV2 : MonoBehaviour {
 	
 //	GameObject player;
 //	public float avoidDist;
- 
+	Animator anim; 
+
 	Transform player;
 	Vector3 newDir;
 	Vector3 newVec;
@@ -47,6 +48,7 @@ public class MovementScriptV2 : MonoBehaviour {
  		rb = GetComponent<Rigidbody>();
  		player = GameObject.Find("Player").GetComponent<Player>().hmdTransform;
 		tempPos = transform.position;
+		anim = GetComponent<Animator>();
 	}
 	
 	// Update is called once per frame
@@ -105,6 +107,8 @@ public class MovementScriptV2 : MonoBehaviour {
 		if(bugIsDizzy){
 //			transform.position += Vector3.zero;
 			transform.Rotate(Vector3.up * dizzyRotSpeed);
+			anim.SetBool("isDizzy", true);
+			GetComponent<TrailRenderer>().enabled = true;
 		}
 
  		Ray ray = new Ray (transform.position, transform.forward);
@@ -126,6 +130,7 @@ public class MovementScriptV2 : MonoBehaviour {
 //		Debug.Log(transform.rotation.eulerAngles.y - _lookRotation.eulerAngles.y);
  
 		if (playerIsCalling) {
+			anim.SetBool("isTwisting", true); 
 			dist = Vector3.Distance (player.position, transform.position);
 			Vector3 playerDir = ((player.forward * 0.75f) + (player.up * 1.5f)) - transform.position;
 			//ROTATE NECK animation state here.
@@ -134,9 +139,16 @@ public class MovementScriptV2 : MonoBehaviour {
 //			newVec = playerDir;
 			//rotate us over time according to speed until we are in the required rotation
 			transform.rotation = Quaternion.Slerp (transform.rotation, _lookRotation, Time.deltaTime * rotSpeed);
-			if ((transform.rotation.eulerAngles.y - _lookRotation.eulerAngles.y) < 10f) {
+			Debug.Log("rotation diff: " + (transform.rotation.eulerAngles.y - _lookRotation.eulerAngles.y));
+			if ((transform.rotation.eulerAngles.y - _lookRotation.eulerAngles.y) >= -5f) {
+				anim.SetBool("isTwisting", false);
 				transform.position += playerDir * moveToPlayerSpeed * Time.deltaTime;	
-			}
+				if (dist > 2f) {
+					anim.SetBool ("isDashing", true);
+				} else {
+					anim.SetBool ("isDashing", false);				
+				}
+			} 
 		}
 	}
 
@@ -164,7 +176,9 @@ public class MovementScriptV2 : MonoBehaviour {
 	{
 		bugWasThrownFast = false;
 		bugIsDizzy = false;
+		anim.SetBool("isDizzy", false);
+		GetComponent<TrailRenderer>().enabled = false;
 	} 
-	
+
  
 }
