@@ -106,8 +106,7 @@ public class MovementScriptV2 : MonoBehaviour {
 
 		if(bugIsDizzy){
 //			transform.position += Vector3.zero;
-			transform.Rotate(Vector3.up * dizzyRotSpeed);
-			anim.SetBool("isDizzy", true);
+ 			anim.SetBool("isDizzy", true);
 			GetComponent<TrailRenderer>().enabled = true;
 		}
 
@@ -167,12 +166,12 @@ public class MovementScriptV2 : MonoBehaviour {
 		}
 	}
 
-	void StartDizziness (){
+	public void StartDizziness (){
 		bugWasThrownFast = true;
 		Invoke("StopDizziness", 5f);
  	}
 
-	void StopDizziness ()
+	public void StopDizziness ()
 	{
 		bugWasThrownFast = false;
 		bugIsDizzy = false;

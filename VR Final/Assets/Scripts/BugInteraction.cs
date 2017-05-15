@@ -5,6 +5,7 @@ using Valve.VR.InteractionSystem;
 
 public class BugInteraction : MonoBehaviour {
 
+
 	Animator anim;
 
 	GameObject wing;
@@ -28,6 +29,8 @@ public class BugInteraction : MonoBehaviour {
 	Quaternion lastRotation, fallbackTorque;
 	GameObject block;
 	public Animator wingAnim;
+
+	public bool wasThrownFast;
 
 
 
@@ -152,10 +155,14 @@ public class BugInteraction : MonoBehaviour {
 //		print (Valve.VR.EVRButtonId.k_EButton_SteamVR_Touchpad);
 		if (hand.GetStandardInteractionButtonUp() ==  true){
 //		if (hand.controller.GetPressUp (Valve.VR.EVRButtonId.k_EButton_SteamVR_Trigger)) { // on Vive controller, this is trigg
- 			hand.DetachObject( gameObject );
+ 			hand.DetachObject(gameObject);
  			if (gameObject.tag == "Creature") {
 //				wingAnim.enabled = true;
 				rotatingWing.rotationsPerSecond = tempRPS;
+				if(wasThrownFast){
+					gameObject.GetComponent<MovementScriptV2>().StartDizziness();
+					wasThrownFast = false;
+				} 
 				gameObject.GetComponent<MovementScriptV2>().grabbed = false;
 			}
 
@@ -170,7 +177,7 @@ public class BugInteraction : MonoBehaviour {
 	// this happens when the object is detached from a hand, for whatever reason
 
 	void OnDetachedFromHand( Hand hand ) {
-
+		
 		gameObject.GetComponent<MovementScriptV2>().grabbed = false;
 		GetComponent<Rigidbody>().isKinematic = false; // turns on physics
 		gameObject.SendMessage ("RegainControl");

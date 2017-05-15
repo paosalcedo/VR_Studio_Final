@@ -34,7 +34,7 @@ public class GestureToCreature : MonoBehaviour {
 	void CheckHandVelo ()
 	{
 
-		if (handVelo.magnitude > gestureMinVelo && !bug.GetComponent<MovementScriptV2>().grabbed) {
+		if (handVelo.magnitude > gestureMinVelo && !bug.GetComponent<MovementScriptV2> ().grabbed) {
 			waveTime += Time.deltaTime;
 			if (waveTime > 1f) {
 				GameObject.Find ("MainBugPrefab").SendMessage ("PlayerCallOn");
@@ -50,11 +50,19 @@ public class GestureToCreature : MonoBehaviour {
 //check if hand velocity was enough to cause dizziness.
 //if yes, tell MovementScript to 
 
-		if (handVelo.magnitude > dizzyMinVelo && _hand.GetStandardInteractionButtonUp() == true && !bug.GetComponent<MovementScriptV2>().grabbed) {
-			Debug.Log("GETTING DIZZY!");
-			Debug.Log ("hand velocity is " + handVelo.magnitude);
-			GameObject.Find("MainBugPrefab").SendMessage("StartDizziness");	
-		}
+//		if (handVelo.magnitude > dizzyMinVelo && _hand.GetStandardInteractionButtonUp() == true && !bug.GetComponent<MovementScriptV2>().grabbed) {
+//			Debug.Log("GETTING DIZZY!");
+//			Debug.Log ("hand velocity is " + handVelo.magnitude);
+//			GameObject.Find("MainBugPrefab").SendMessage("StartDizziness");	
+//		}
+
+		if (bug.GetComponent<MovementScriptV2> ().grabbed) {
+			if (handVelo.magnitude > dizzyMinVelo) {
+				bug.GetComponent<BugInteraction> ().wasThrownFast = true;
+			} else {
+				bug.GetComponent<BugInteraction> ().wasThrownFast = false;
+			}
+		} 
 
 	}
 	
