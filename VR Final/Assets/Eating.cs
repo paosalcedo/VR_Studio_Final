@@ -13,8 +13,8 @@ public class Eating : StateMachineBehaviour {
 
 	 // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
 	override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex) {
-		Vector3 pos = animator.rootPosition + Vector3.forward;
-		clone = Instantiate(particle, pos, Quaternion.identity) as GameObject;
+//		Vector3 pos = animator.rootPosition + (Vector3.forward * 0.2f);
+//		clone = Instantiate(particle, animator.rootPosition, Quaternion.identity) as GameObject;
 	}
 		
 //	override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex) {
@@ -23,7 +23,7 @@ public class Eating : StateMachineBehaviour {
 
 	// OnStateExit is called when a transition ends and the state machine finishes evaluating this state
 	override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex) {
-		Destroy (clone);
+//		Destroy (clone);
 		animator.SetBool ("isEating", false);
 	}
 

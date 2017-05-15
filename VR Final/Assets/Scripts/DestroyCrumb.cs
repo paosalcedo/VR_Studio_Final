@@ -7,11 +7,20 @@ public class DestroyCrumb : MonoBehaviour {
 
 	Animator anim;
 	GameObject bug;
+
+	bool hasEaten;
+	GameObject clone;
+
+//	ParticleSystem ps;
+
 	public float distToBug;
  	// Use this for initialization
 	void Start () {
 		bug = GameObject.Find("MainBugPrefab");
 		anim = bug.GetComponent<Animator>();
+		hasEaten = false;
+
+//		ps = bug.GetComponentInChildren<ParticleSystem> ();
 	}
 
 	// Update is called once per frame
@@ -30,9 +39,19 @@ public class DestroyCrumb : MonoBehaviour {
 	}
 
 	IEnumerator EatAndWait ()
+
 	{
- 		anim.SetBool("isEating", true);	
-		yield return new WaitForSeconds(1f);
+		if (!hasEaten) {
+			clone = Instantiate (Resources.Load ("Prefabs/PS_Eat") as GameObject);
+			clone.transform.position = transform.position;
+			anim.SetBool ("isEating", true);
+			hasEaten = true;
+
+		}
+
+		yield return new WaitForSeconds(0.8f);
+
+		Destroy (clone);
 		MoveToCrumb.crumbs.Remove (gameObject);
 		Destroy(gameObject);
  	}
