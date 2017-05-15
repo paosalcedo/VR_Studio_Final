@@ -14,6 +14,7 @@ public class MovementScriptV2 : MonoBehaviour {
 	Vector3 newVec;
  //	public float avoidForce = 2f;
 	float callTime;
+	public TrailRenderer tr;
 	public float kinematicDelay; //the larger this value is, the longer it takes for the bug to regain control after being thrown.
 	public float minCallTime;
 	public float minCallVolume;
@@ -26,7 +27,7 @@ public class MovementScriptV2 : MonoBehaviour {
 //	public float hoverHoriSpeed;
 //	public float amplitude;
 	public float moveToPlayerSpeed = 1f;
-	public float lengthOfDizziness;
+//	public float lengthOfDizziness;
 	float dist;
 	
 	private Vector3 tempPos;
@@ -94,20 +95,23 @@ public class MovementScriptV2 : MonoBehaviour {
 	
 	void MoveForward ()
 	{
- 		if (!playerIsCalling && !bugIsDizzy) {
- 			transform.position += transform.forward * forwardForce * Time.deltaTime;
+		if (!playerIsCalling && !bugIsDizzy) {
+			transform.position += transform.forward * forwardForce * Time.deltaTime;
  
-	    	//create the rotation we need to be in to look at the target
-         	_lookRotation = Quaternion.LookRotation(newVec);
+			//create the rotation we need to be in to look at the target
+			_lookRotation = Quaternion.LookRotation (newVec);
  
-         	//rotate us over time according to speed until we are in the required rotation
-         	transform.rotation = Quaternion.Slerp(transform.rotation, _lookRotation, Time.deltaTime * rotSpeed);
+			//rotate us over time according to speed until we are in the required rotation
+			transform.rotation = Quaternion.Slerp (transform.rotation, _lookRotation, Time.deltaTime * rotSpeed);
 		}
 
-		if(bugIsDizzy){
+		if (bugIsDizzy) {
 //			transform.position += Vector3.zero;
- 			anim.SetBool("isDizzy", true);
-			GetComponent<TrailRenderer>().enabled = true;
+			anim.SetBool ("isDizzy", true);
+			tr.enabled = true;
+		} else {
+			tr.enabled = false; 
+			anim.SetBool ("isDizzy", false);
 		}
 
  		Ray ray = new Ray (transform.position, transform.forward);
@@ -157,18 +161,17 @@ public class MovementScriptV2 : MonoBehaviour {
 
 	void MakeKinematic ()
 	{
+		GetComponent<Rigidbody> ().isKinematic = true;
+		anim.enabled = true;
 		if (bugWasThrownFast == true) {
-			GetComponent<Rigidbody> ().isKinematic = true;
-			//add dizziness here
+				//add dizziness here
 			bugIsDizzy = true;
-		} else {
-			GetComponent<Rigidbody> ().isKinematic = true;
 		}
 	}
 
 	public void StartDizziness (){
 		bugWasThrownFast = true;
-		Invoke("StopDizziness", 5f);
+		Invoke("StopDizziness", kinematicDelay);
  	}
 
 	public void StopDizziness ()
@@ -176,7 +179,7 @@ public class MovementScriptV2 : MonoBehaviour {
 		bugWasThrownFast = false;
 		bugIsDizzy = false;
 		anim.SetBool("isDizzy", false);
-		GetComponent<TrailRenderer>().enabled = false;
+		tr.enabled = false;
 	} 
 
  

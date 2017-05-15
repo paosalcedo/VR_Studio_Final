@@ -179,6 +179,7 @@ public class BugInteraction : MonoBehaviour {
 	void OnDetachedFromHand( Hand hand ) {
 		
 		gameObject.GetComponent<MovementScriptV2>().grabbed = false;
+		anim.enabled = false;
 		GetComponent<Rigidbody>().isKinematic = false; // turns on physics
 		gameObject.SendMessage ("RegainControl");
 		anim.SetBool ("isGrabbed", false);
