@@ -8,6 +8,8 @@ public class BugInteraction : MonoBehaviour {
 
 	Animator anim;
 
+
+
 	GameObject wing;
 	public TrailRenderer tr;
 	LineRenderer lr;
@@ -36,6 +38,7 @@ public class BugInteraction : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+
 
 		anim = GetComponent<Animator> ();
 		wing = GameObject.Find ("BugController");
@@ -100,6 +103,7 @@ public class BugInteraction : MonoBehaviour {
 			if (gameObject.tag == "Creature") {
 				gameObject.GetComponent<MovementScriptV2> ().grabbed = true;
 				anim.SetBool ("isGrabbed", true);
+
 //				wingAnim.enabled = false;
 				rotatingWing.rotationsPerSecond = 0;
 				gameObject.SendMessage ("PlayerCallOff");
@@ -114,6 +118,7 @@ public class BugInteraction : MonoBehaviour {
 	void OnAttachedToHand( Hand hand ) {
 
 		GetComponent<Rigidbody>().isKinematic = true; // turn off physics so we can hold it
+
 
 
 
@@ -183,6 +188,7 @@ public class BugInteraction : MonoBehaviour {
 		GetComponent<Rigidbody>().isKinematic = false; // turns on physics
 		gameObject.SendMessage ("RegainControl");
 		anim.SetBool ("isGrabbed", false);
+
 
 		tr.enabled = false;
 		tr.Clear();

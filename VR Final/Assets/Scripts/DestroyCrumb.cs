@@ -28,6 +28,7 @@ public class DestroyCrumb : MonoBehaviour {
 	{
 		if (Vector3.Distance (transform.position, bug.transform.position) <= distToBug) {
 			anim.SetBool("isDashing", false);
+			anim.SetBool ("isEating", true);
 			StartCoroutine("EatAndWait");
  		}
 	}
@@ -45,7 +46,6 @@ public class DestroyCrumb : MonoBehaviour {
 		if (!hasEaten) {
 			clone = Instantiate (Resources.Load ("Prefabs/PS_Eat") as GameObject);
 			clone.transform.position = transform.position;
-			anim.SetBool ("isEating", true);
 			hasEaten = true;
 
 		}

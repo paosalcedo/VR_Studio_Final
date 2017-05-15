@@ -66,17 +66,17 @@ public class MoveToCrumb : MonoBehaviour {
 		}
 	}
 
-	void DestroyCrumb ()
-	{
- 		Destroy(crumbs[0].gameObject);
-		crumbs.Remove(crumbs[0].gameObject);
-	}
-
-	IEnumerator EatAndWait ()
-	{
-		anim.SetBool("isEating", true);	
-		yield return new WaitForSeconds(1.5f);
-		DestroyCrumb();
-	}
+//	void DestroyCrumb ()
+//	{
+// 		Destroy(crumbs[0].gameObject);
+//		crumbs.Remove(crumbs[0].gameObject);
+//	}
+//
+//	IEnumerator EatAndWait ()
+//	{
+//		anim.SetBool("isEating", true);	
+//		yield return new WaitForSeconds(1.5f);
+//		DestroyCrumb();
+//	}
 
 }
