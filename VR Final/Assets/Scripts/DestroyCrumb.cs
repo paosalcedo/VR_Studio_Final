@@ -8,7 +8,7 @@ public class DestroyCrumb : MonoBehaviour {
 	Animator anim;
 	GameObject bug;
 	public float distToBug;
-	// Use this for initialization
+ 	// Use this for initialization
 	void Start () {
 		bug = GameObject.Find("MainBugPrefab");
 		anim = bug.GetComponent<Animator>();
@@ -18,10 +18,8 @@ public class DestroyCrumb : MonoBehaviour {
 	void Update ()
 	{
 		if (Vector3.Distance (transform.position, bug.transform.position) <= distToBug) {
-			anim.SetBool("isEating", true);
-			Destroy(gameObject);
-			MoveToCrumb.crumbs.Remove (gameObject);
-		}
+			StartCoroutine("EatAndWait");
+ 		}
 	}
 
 	void OnCollisionEnter(Collision coll){
@@ -30,4 +28,12 @@ public class DestroyCrumb : MonoBehaviour {
 			MoveToCrumb.crumbs.Remove (gameObject);
 		}
 	}
+
+	IEnumerator EatAndWait ()
+	{
+ 		anim.SetBool("isEating", true);	
+		yield return new WaitForSeconds(1f);
+		MoveToCrumb.crumbs.Remove (gameObject);
+		Destroy(gameObject);
+ 	}
 }
