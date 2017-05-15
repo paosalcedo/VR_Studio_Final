@@ -165,6 +165,7 @@ public class BugInteraction : MonoBehaviour {
 //				wingAnim.enabled = true;
 				rotatingWing.rotationsPerSecond = tempRPS;
 				if(wasThrownFast){
+                    Debug.Log("Bug was thrown fast!");
 					gameObject.GetComponent<MovementScriptV2>().StartDizziness();
 					wasThrownFast = false;
 				} 

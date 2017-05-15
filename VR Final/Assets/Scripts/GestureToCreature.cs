@@ -59,9 +59,7 @@ public class GestureToCreature : MonoBehaviour {
 		if (bug.GetComponent<MovementScriptV2> ().grabbed) {
 			if (handVelo.magnitude > dizzyMinVelo) {
 				bug.GetComponent<BugInteraction> ().wasThrownFast = true;
-			} else {
-				bug.GetComponent<BugInteraction> ().wasThrownFast = false;
-			}
+			} 
 		} 
 
 	}

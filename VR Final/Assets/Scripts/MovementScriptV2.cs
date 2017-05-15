@@ -106,10 +106,12 @@ public class MovementScriptV2 : MonoBehaviour {
 		}
 
 		if (bugIsDizzy) {
-//			transform.position += Vector3.zero;
-			anim.SetBool ("isDizzy", true);
+            Debug.Log("Bug is in dizzy state!");
+ 			anim.SetBool ("isDizzy", true);
 			tr.enabled = true;
-		} else {
+            transform.position += Vector3.zero;
+        }
+        else {
 			tr.enabled = false; 
 			anim.SetBool ("isDizzy", false);
 		}
@@ -142,7 +144,7 @@ public class MovementScriptV2 : MonoBehaviour {
 //			newVec = playerDir;
 			//rotate us over time according to speed until we are in the required rotation
 			transform.rotation = Quaternion.Slerp (transform.rotation, _lookRotation, Time.deltaTime * rotSpeed);
-			Debug.Log("rotation diff: " + (transform.rotation.eulerAngles.y - _lookRotation.eulerAngles.y));
+//			Debug.Log("rotation diff: " + (transform.rotation.eulerAngles.y - _lookRotation.eulerAngles.y));
 			if ((transform.rotation.eulerAngles.y - _lookRotation.eulerAngles.y) >= -5f) {
 //				anim.SetBool("isTwisting", false);
 				transform.position += playerDir * moveToPlayerSpeed * Time.deltaTime;	
@@ -156,31 +158,42 @@ public class MovementScriptV2 : MonoBehaviour {
 	}
 
 	void RegainControl (){
-		Invoke ("MakeKinematic", kinematicDelay);
+        //bug regains control after kinematicDelay
+        Invoke ("MakeKinematic", kinematicDelay);
 	}
 
 	void MakeKinematic ()
 	{
 		GetComponent<Rigidbody> ().isKinematic = true;
 		anim.enabled = true;
-		if (bugWasThrownFast == true) {
-				//add dizziness here
-			bugIsDizzy = true;
-		}
-	}
+       
+    }
 
 	public void StartDizziness (){
 		bugWasThrownFast = true;
-		Invoke("StopDizziness", kinematicDelay);
+        
+        Debug.Log("StartDizziness was called!");
+		Invoke("StopDizziness", 5f);
  	}
 
 	public void StopDizziness ()
 	{
+        Debug.Log("StopDizziness was called!");
 		bugWasThrownFast = false;
 		bugIsDizzy = false;
 		anim.SetBool("isDizzy", false);
 		tr.enabled = false;
-	} 
+	}
+
+
+    void OnCollisionEnter(Collision coll) {
+        if (coll.gameObject.tag == "Wall" && bugWasThrownFast == true)
+        {
+            bugIsDizzy = true;
+        }
+    }
+
+   
 
  
 }
