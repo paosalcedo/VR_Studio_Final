@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.Audio;
 using Valve.VR.InteractionSystem;
 
 public class EventController : MonoBehaviour {
@@ -9,6 +10,8 @@ public class EventController : MonoBehaviour {
 	public Light light;
 
 	ParticleSystem [] fireflies;
+
+	public AudioMixer mixer;
 
 	public Transform wind;
 
@@ -32,6 +35,8 @@ public class EventController : MonoBehaviour {
 	public float emitMax, emitMin;
 
 	public float fresMin , fresMax;
+
+	public float volumeMin ,volumeMax;
 
 	public Color groundColor1, groundColor2;
 
@@ -103,6 +108,7 @@ public class EventController : MonoBehaviour {
 			ChangeGroundColor (groundColor1, groundColor2);
 			ChangeEyeBrightness (eyeMin, eyeMax, eyeStepMin, eyeStepMax);
 			ChangeEyeColor (eyeColor1, eyeColor2);
+			ChangeAmbientAudio (volumeMin, volumeMax);
 
 		} else {
 
@@ -120,6 +126,7 @@ public class EventController : MonoBehaviour {
 				ChangeGroundColor (groundColor1, groundColor2);
 				ChangeEyeBrightness (eyeMin, eyeMax, eyeStepMin, eyeStepMax);
 				ChangeEyeColor (eyeColor1, eyeColor2);
+				ChangeAmbientAudio (volumeMin, volumeMax);
 
 
 			}
@@ -243,6 +250,14 @@ public class EventController : MonoBehaviour {
 		Color lerpedColor = Color.LerpUnclamped(c1, c2, colorChange);
 		eyeball.SetColor ("_Color", lerpedColor);
 
+	}
+
+	public void ChangeAmbientAudio(float min, float max){
+		float volume1 = UtilScript.remapRange (linearValue, 0, 1, min, max);
+		float volume2 = UtilScript.remapRange (linearValue, 0, 1, max, min);
+
+		mixer.SetFloat ("nightVolume", volume1);
+		mixer.SetFloat ("dayVolume", volume2);
 	}
 
 
