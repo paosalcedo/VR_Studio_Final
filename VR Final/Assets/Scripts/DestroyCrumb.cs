@@ -14,6 +14,8 @@ public class DestroyCrumb : MonoBehaviour {
 //	ParticleSystem ps;
 
 	public float distToBug;
+
+	float distToDashExit = 0.5f;
  	// Use this for initialization
 	void Start () {
 		bug = GameObject.Find("MainBugPrefab");
@@ -26,11 +28,14 @@ public class DestroyCrumb : MonoBehaviour {
 	// Update is called once per frame
 	void Update ()
 	{
-		if (Vector3.Distance (transform.position, bug.transform.position) <= distToBug) {
+		if (Vector3.Distance (transform.position, bug.transform.position) <= distToDashExit) {
 			anim.SetBool("isDashing", false);
+ 		}
+
+		if (Vector3.Distance (transform.position, bug.transform.position) <= distToBug) {
 			anim.SetBool ("isEating", true);
 			StartCoroutine("EatAndWait");
- 		}
+		}
 	}
 
 	void OnCollisionEnter(Collision coll){

@@ -190,6 +190,7 @@ public class MovementScriptV2 : MonoBehaviour {
         if (coll.gameObject.tag == "Wall" && bugWasThrownFast == true)
         {
             bugIsDizzy = true;
+			GetComponent<Rigidbody> ().isKinematic = true;
         }
     }
 
